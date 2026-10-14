@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OrcaRouter | Message Grader</title>
+    <title>OrcaRouter | SDR Enablement Hub</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root {
             --bg: #ffffff;
@@ -11,6 +12,7 @@
             --border: #e0e0e0;
             --accent: #000000;
             --hover: #333333;
+            --gray: #f9f9f9;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -18,40 +20,67 @@
             color: var(--text);
             line-height: 1.6;
             margin: 0;
-            padding: 40px 20px;
+            padding: 0;
+        }
+        .nav {
+            position: sticky;
+            top: 0;
+            background: white;
+            border-bottom: 2px solid black;
+            padding: 20px;
             display: flex;
-            justify-content: center;
+            gap: 20px;
+            z-index: 100;
+        }
+        .nav a {
+            text-decoration: none;
+            color: black;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+        .nav a:hover {
+            text-decoration: underline;
         }
         .container {
-            max-width: 800px;
-            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
         }
         header {
-            margin-bottom: 40px;
-            border-bottom: 2px solid var(--text);
+            margin-bottom: 60px;
+            border-bottom: 4px solid var(--text);
             padding-bottom: 20px;
         }
         h1 {
-            font-size: 32px;
-            font-weight: 800;
+            font-size: 48px;
+            font-weight: 900;
             margin: 0;
             text-transform: uppercase;
-            letter-spacing: -1px;
+            letter-spacing: -2px;
+            line-height: 1;
         }
-        p.subtitle {
-            font-size: 16px;
-            color: #666;
-            margin-top: 8px;
+        .section {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+        .section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .card {
             border: 1px solid var(--border);
             padding: 30px;
             margin-bottom: 30px;
-            border-radius: 0;
+            background: var(--gray);
         }
         label {
             display: block;
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 10px;
             text-transform: uppercase;
             font-size: 12px;
@@ -60,120 +89,548 @@
         textarea {
             width: 100%;
             padding: 15px;
-            border: 1px solid var(--border);
+            border: 2px solid var(--text);
             font-family: inherit;
             font-size: 16px;
             margin-bottom: 20px;
             box-sizing: border-box;
             resize: vertical;
-            min-height: 100px;
-        }
-        textarea:focus {
-            outline: none;
-            border-color: var(--text);
+            min-height: 120px;
         }
         button {
             background-color: var(--accent);
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 20px;
             font-size: 14px;
-            font-weight: 700;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             cursor: pointer;
             width: 100%;
-            transition: background-color 0.2s;
+            transition: all 0.2s;
         }
         button:hover {
             background-color: var(--hover);
+            transform: scale(1.01);
         }
-        .result-area {
-            display: none;
+        .markdown-body {
+            font-size: 16px;
+        }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            border-bottom: 2px solid black;
+            padding-bottom: 10px;
             margin-top: 40px;
-            border-top: 1px solid var(--border);
-            padding-top: 30px;
+        }
+        .markdown-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .markdown-body th, .markdown-body td {
+            border: 1px solid black;
+            padding: 12px;
+            text-align: left;
+        }
+        .markdown-body th {
+            background: black;
+            color: white;
+            text-transform: uppercase;
+            font-size: 12px;
         }
         .copy-box {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border: 1px dashed #ccc;
-            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #000;
+            color: #0f0;
+            padding: 25px;
+            font-family: "SFMono-Regular", monospace;
             font-size: 14px;
             white-space: pre-wrap;
-            margin-bottom: 20px;
+            margin-top: 20px;
+            border-radius: 4px;
+            overflow-x: auto;
         }
         .badge {
             display: inline-block;
-            padding: 4px 8px;
+            padding: 6px 12px;
             background: #000;
             color: #fff;
-            font-size: 10px;
-            font-weight: 800;
-            margin-bottom: 10px;
+            font-size: 11px;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
+    <div class="nav">
+        <a href="#" onclick="showSection('grader')">Message Grader</a>
+        <a href="#" onclick="showSection('playbook')">Enablement Playbook</a>
+        <a href="#" onclick="showSection('cheatsheet')">Fluff-to-Fact</a>
+    </div>
+
     <div class="container">
-        <header>
-            <h1>Message Grader</h1>
-            <p class="subtitle">Convert fluff into math-based outreach that actually gets meetings.</p>
-        </header>
+        <!-- GRADER SECTION -->
+        <div id="grader" class="section active">
+            <header>
+                <h1>Message Grader</h1>
+                <p>Convert fluff into math-based outreach that actually gets meetings.</p>
+            </header>
+            <div class="card">
+                <label for="context">Prospect Context</label>
+                <textarea id="context" placeholder="Paste their LinkedIn post, X thread, or Discord question here..."></textarea>
 
-        <div class="card">
-            <label for="context">Prospect Context</label>
-            <textarea id="context" placeholder="Paste their LinkedIn post, X thread, or Discord question here..."></textarea>
+                <label for="draft">Your Draft Message</label>
+                <textarea id="draft" placeholder="Paste the message you want to send..."></textarea>
 
-            <label for="draft">Your Draft Message</label>
-            <textarea id="draft" placeholder="Paste the message you want to send..."></textarea>
-
-            <button onclick="generateRequest()">Generate Grading Request</button>
+                <button onclick="generateRequest()">Generate Grading Request</button>
+            </div>
+            <div id="resultArea" style="display:none">
+                <div class="badge">Ready to Send</div>
+                <p>Copy this and paste it into your chat with SuperAgent.</p>
+                <div id="copyBox" class="copy-box"></div>
+                <button style="margin-top:10px" onclick="copyToClipboard()">Copy to Clipboard</button>
+            </div>
         </div>
 
-        <div id="resultArea" class="result-area">
-            <div class="badge">READY TO SEND</div>
-            <p>Copy the text below and paste it into your chat with SuperAgent to get your grade and optimization.</p>
-            <div id="copyBox" class="copy-box"></div>
-            <button onclick="copyToClipboard()">Copy to Clipboard</button>
+        <!-- PLAYBOOK SECTION -->
+        <div id="playbook" class="section">
+            <header>
+                <h1>Enablement Playbook</h1>
+                <p>The master guide for OrcaCyber Zero & Community Prospecting.</p>
+            </header>
+            <div id="playbookContent" class="markdown-body"></div>
+        </div>
+
+        <!-- CHEATSHEET SECTION -->
+        <div id="cheatsheet" class="section">
+            <header>
+                <h1>Fluff-to-Fact</h1>
+                <p>The Anti-Fluff Framework for SDRs.</p>
+            </header>
+            <div id="cheatsheetContent" class="markdown-body"></div>
         </div>
     </div>
 
     <script>
+        const playbookMd = `# Enablement Session: OrcaCyber Zero & Community Prospecting
+
+**Audience:** SDRs / AEs / Developer Relations
+**Scope:** (1) OrcaCyber Zero product enablement, (2) how to prospect across Discord, MCP registries, Product Hunt, and X for OrcaRouter + OrcaCyber
+**Status:** Internal enablement v1
+
+---
+
+## How to use this
+
+Part 1 and Part 2 make you fluent on the product. Part 3 and Part 4 are the action plan. If you only have 15 minutes, read the "Facts at a glance" box, the positioning one-liner, and Part 4.
+
+---
+
+# PART 1 — OrcaCyber Zero: the product
+
+## What it is
+
+**OrcaCyber Zero 1.5** is OrcaRouter's frontier cybersecurity reasoning model, built for *authorized* security work. It is the successor to Zero 1.0 (shipped Sept 17, 2026). It is a post-trained model purpose-built for:
+
+- Vulnerability reproduction
+- Exploit development
+- Penetration testing
+- Security auditing
+- Cyber reasoning / multi-stage attack-path investigation
+
+The core promise, straight from the company: **fewer reports, more validated and fixed.** It prioritizes *reproducible evidence* over alert volume. Instead of generating a pile of low-confidence findings, it reasons through attack paths and ranks flaws by how demonstrably exploitable they are.
+
+## Facts at a glance
+
+| Attribute | Value |
+|---|---|
+| Model ID | \`orca/orcacyber-zero-1.5\` |
+| Context window | 1M tokens |
+| Max output | 128K tokens |
+| Input / output | Text only |
+| Function calling | Native |
+| Structured outputs | Yes |
+| Access | Gated "Security Research" tier (business-verified teams, authorized work) |
+| Hosting | Hosted API only via OrcaRouter (no weights, no self-host) |
+| Price | $3.00 / $7.50 per 1M tokens (in / out); cached reads $0.75/M |
+| API | OpenAI-compatible endpoint |
+| **Vulnerability Focus** | **P-0 and P-1 (Critical/Urgent)** |
+
+## P-0 and P-1: The "Hair on Fire" Advantage
+
+In cybersecurity, vulnerabilities are ranked by priority. OrcaCyber Zero is specifically tuned to find the ones that matter most:
+
+- **P-0 (Priority 0):** The "code red" issues. Full service outages, active data breaches, or flaws that directly threaten revenue. These require immediate, all-hands-on-deck response.
+- **P-1 (Priority 1):** Critical but not yet catastrophic. Major security gaps that exist without active exploitation yet, or core features that are partially failing.
+
+**Why this is a big advantage:** Most scanners drown you in P-3 (minor) noise. OrcaCyber Zero is built to ignore the fluff and find the "hair on fire" flaws that actually sink companies.
+
+## Red Teaming: The Adversarial Lens
+
+**What is it?** Red teaming is a simulated cyberattack conducted by ethical hackers to test how well an organization can actually defend itself. 
+
+- **How it's used:** A red team emulates the tactics of real attackers (TTPs) to breach defenses, exfiltrate data, or escalate privileges.
+- **Why it's important:** It's the only way to know if your security *actually* works. Penetration testing finds bugs; red teaming finds out if those bugs can be used to destroy you.
+- **OrcaCyber's role:** It acts as an autonomous red-team member. It doesn't just find a bug; it reasons through the attack path to prove the bug is exploitable.
+
+## KYC, Harnesses, and "Connects to Any Software"
+
+**"KYC Use in Harness or Agent" — Simple Language:**
+- **KYC (Know Your Customer):** Because OrcaCyber Zero is powerful, we verify who is using it. You can't just sign up with a burner email; we verify the business.
+- **Harness / Agent:** A "harness" is the code scaffolding you wrap around a model to make it an "agent" (something that can actually *do* things, like run terminal commands or edit files). 
+- **"Connects to any software":** Through the OrcaRouter gateway and MCP (Model Context Protocol), OrcaCyber Zero can be plugged directly into your existing dev tools, security logs, or terminal.
+
+**Why this is important:** It means OrcaCyber Zero isn't just a chatbot you talk to. It's a specialized brain you can drop into your existing security automation.
+
+## Who is buying and how do we sell it?
+
+| Who is buying? | How to sell it |
+|---|---|
+| **Red Teams / Pentest Firms** | "Increase your throughput. Use Zero to automate the boring repro work so your humans can focus on the creative hacks." |
+| **Product Security Teams** | "Stop shipping P-0s. Drop Zero into your CI/CD harness to validate exploitability before the code ever hits production." |
+| **MSSPs (Managed Security)** | "Offer 'Autonomous Red Teaming' as a service at 1/10th the cost of using Mythos." |
+
+# PART 3 — The Ideal Customer Profile (ICP)
+
+## Who are we looking for? (The Buyer)
+
+| Role | Why they care |
+|---|---|
+| **CISO / Head of Security** | They need to prove security works without spending millions on manual testing. |
+| **Red Team Lead** | They want to find more bugs in less time. They're tired of manual exploit dev. |
+| **AI Engineer / CTO** | They're building agents and realized model costs are eating their margin. |
+| **Product Security Engineer** | They need to stop P-0 vulnerabilities from reaching production. |
+
+## Best-fit companies to pitch
+
+1.  **Cybersecurity Firms:** Pentest shops and MSSPs. They sell security as a service and need to lower their own costs.
+2.  **AI-First Startups:** Anyone building "agents" or "autonomous" software. They're already calling multiple models.
+3.  **High-Compliance Tech:** Fintech, Healthtech, and Defense. They have the budget and the "hair on fire" need for P-0 protection.
+4.  **Large SaaS:** Companies with massive codebases that need the 1M context window to find deep flaws.
+
+## How to find them on our channels
+
+### 1. Discord
+- **Search for:** "MCP", "Agentic", "Red Team", "Pentest", "LLM Ops".
+- **Where to look:** Join the specific servers listed below.
+- **The Signal:** Look for people asking about "model costs," "Mythos alternatives," or "how to secure tool calls."
+
+#### Top AI & Agent Builder Servers
+| Server Name | Why join? | Invite Link (if public) |
+|---|---|---|
+| **Anthropic Developer** | High signal, quiet, focused on Claude Code and tool use. | [Join](https://discord.gg/anthropic) |
+| **Latent Space** | Professional home for applied AI engineering and evals. | [Join](https://discord.gg/latent-space) |
+| **Mistral AI** | Most active open-weights community; technical skew. | [Join](https://discord.gg/mistralai) |
+| **Lovable** | High-energy community of non-engineers shipping real apps. | [Join](https://discord.gg/lovable) |
+| **AutoGPT** | Massive community (~55k) of agent builders. | [Join](https://discord.gg/autogpt) |
+| **Hugging Face** | The largest ML community (~100k+); check \`#smolagents\`. | [Join](https://discord.gg/hugging-face) |
+| **LocalLLaMA** | Devs running local models (perfect for cost-saving pitches). | [Join](https://discord.gg/rC922KfEwj) |
+| **LangChain** | Largest concentration of LLM-app builders. | [Join](https://discord.gg/langchain) |
+
+#### Top Cybersecurity & Red Team Servers
+| Server Name | Why join? | Invite Link (if public) |
+|---|---|---|
+| **Red Team Village** | Hub for offensive security strategy and critical thinking. | [Join](https://discord.gg/redteamvillage) |
+| **OffSec (Offensive Security)** | Official server for pentest training and certifications. | [Join](https://discord.gg/offsec) |
+| **John Hammond's Community** | Massive community for security education and CTFs. | [Join](https://discord.gg/johnhammond) |
+| **Black Hills Infosec** | Professional pentesting and defensive security hub. | [Join](https://discord.gg/bhis) |
+| **NahamSec** | Focused on bug bounty, recon, and offensive security. | [Join](https://discord.gg/nahamsec) |
+| **The Cyber Mentor (TCM)** | Hub for cybersecurity learners and professionals. | [Join](https://discord.gg/tcm) |
+
+### 2. MCP Registries (Glama, Smithery, PulseMCP)
+- **The Strategy:** Look at who is *publishing* servers. 
+- **The Signal:** If a company has an MCP server listed, they are already building agents. They are the perfect fit for the OrcaRouter gateway + OrcaCyber Zero.
+- **Action:** Find the "Maker" or "Author" on the listing and find them on LinkedIn/X.
+
+### 3. Product Hunt
+- **Search for:** "AI Security", "LLM Gateway", "Agent Framework", "Pentest".
+- **The Signal:** Look at the "Upvoters" and "Commenters" on competing or adjacent products. These people have self-identified as having the problem we solve.
+
+### 4. X (Twitter)
+- **Search for:** "Mythos cost", "LLM routing", "Cybench", "P-0 vulnerability".
+- **The Signal:** Follow security researchers who post about "reproducible exploits." They are the end-users for OrcaCyber Zero.
+
+---
+
+# PART 2 — Positioning & messaging
+
+## The umbrella positioning
+
+> **OrcaCyber Zero is the red-team model; the OrcaRouter gateway is the blue-team control plane. Same key, same gateway, same policy layer.**
+
+OrcaCyber Zero is not sold standalone. It lives inside the OrcaRouter gateway, alongside:
+
+- **Agent Firewall** — every tool/MCP call allowed, reviewed, or blocked before it runs
+- **Guardrails** — PII, secrets, jailbreaks, prompt injection blocked before they're billed
+- **Code review gate** — gates code before it ships
+- **Compliance packs** — mapped to 32 frameworks
+- **Data cloaking & ZDR (Zero Data Retention)** — privacy-first controls
+
+The full pitch: **"Cyber models for your red team. Gateway controls for your blue team."**
+
+## The one-liner
+
+> "OrcaCyber Zero 1.5 is a 1M-context cybersecurity model that reports 100% on Cybench and 95.8% on CVE-Bench, at $3/$7.50 per 1M tokens — roughly a tenth of the cost of the named frontier alternative. It runs behind the same gateway controls you'd use to govern any agent."
+
+## Key value props (pick 2–3 per conversation)
+
+1. **Evidence over volume** — reproducible findings, fewer false positives.
+2. **Cost** — frontier cyber scores at a fraction of competitor pricing.
+3. **Context** — 1M tokens means it can reason over entire codebases and interconnected systems without losing the thread.
+4. **Governance built-in** — the same gateway that runs the model also enforces firewall, guardrails, and compliance.
+5. **Authorized-by-design** — gated access signals legitimacy to buyers who care about responsible AI.
+
+## Objection handling
+
+| Objection | Original Response | Simplified Option (High School Level) |
+|---|---|---|
+| "These benchmarks are self-reported." | "Correct — they're vendor-reported and CVE-Bench was a small subset. That's exactly why the price matters: you can validate against your own targets at a fraction of the cost of the alternative." | "Yeah, they're our own numbers and the test set was small. That's why the price is so low. You can test it yourself for way less than the other guys." |
+| "Why is it gated?" | "Because it's genuinely capable of exploit development. Gating protects against misuse and means everyone in the tier is a verified, authorized team — which is who you want next to you." | "It's because the model is actually good at making exploits. We gate it to keep things safe and make sure only real security teams are using it." |
+| "We already use GPT/Claude for security." | "General models guess at attack paths. Zero is post-trained specifically to reproduce and validate exploits — and it holds a 1M-token context over the whole codebase." | "General models just guess. Zero is built specifically to find and prove bugs. Plus, it can look at your whole codebase at once with that 1M context window." |
+| "It's too expensive to trial." | "At $3/$7.50 per 1M, trialing costs pennies relative to the $25/$125 alternative." | "At $3 per million tokens, it's basically free to try compared to the $25 the other guys charge." |
+| "We're not a 'cyber' company." | "If your product ships code or your app handles sensitive data, someone on your team is doing security work. Zero's the red-team half; the gateway is the blue-team half — both under one key." | "If you ship code, you're doing security. Zero finds the bugs, and the gateway keeps things safe. You get both in one place." |
+
+---
+
+# PART 4 — Prospecting channels & playbooks
+
+## Channel overview
+
+| Channel | Why it matters | Signal you're hunting |
+|---|---|---|
+| **Discord** | OrcaRouter has an active Discord; AI devs self-select into problem-focused communities | People hitting "which model for X" / "model costs too much" walls |
+| **Glama** | Largest MCP registry (~89k servers), tiered quality (AAA), claim + verify | Devs browsing MCP servers = already building agents |
+| **Smithery** | Hosted + Toolbox distribution, one-click install | Devs installing MCP servers into their stack |
+| **PulseMCP** | Curated, editorial-vetted (~1,200+ servers) | Higher-intent buyers who trust curation |
+| **mcp.so** | Auto-indexed directory (~10k+) | Long-tail discovery; claim ownership |
+| **Product Hunt** | Launch / upvote surface | Product-launch eyeballs, indie hackers |
+| **X (Twitter)** | OrcaRouter account + OrcaCyber posts | Devs engaging on routing/security threads |
+
+## Discord playbook (community-first, NOT pitch-first)
+
+The rule from the Reddit experiment applies here: **lead with the problem, not the product.**
+
+1. **Find the right servers.** Target: MCP/agent-dev communities, LLM-ops, cybersecurity/pentest communities, and OrcaRouter's own Discord.
+2. **Listen before you talk.** Watch for the two recurring pain points that routing/Zero solves:
+   - "How do I move from expensive models to cheaper ones without hurting quality?"
+   - "Which model is actually best for [specific security/legal/coding task]?"
+3. **Earn the right to mention the product.** Answer the question genuinely first. Only bridge when it's natural.
+4. **The bridge line** (works for both OrcaRouter and OrcaCyber):
+   - Routing: "We don't judge quality either — your eval is the bar, we route to the cheapest model that clears it."
+   - Cyber: "OrcaCyber Zero is gated to authorized teams, but it's $3/$7.50 per 1M tokens with a 1M context — worth a look if you're doing vuln research."
+5. **Collect, don't hard-close.** Discord is for surfacing conversations and DMs to follow up on — not for closing in-thread.
+
+## MCP registry playbook
+
+OrcaRouter **already has** an official MCP server (\`orcarouter-mcp-server\`, under \`Continuum-AI-Corp\`), listed with Glama config (\`glama.json\`) and a Smithery badge. Your job is **visibility + ownership + engagement**, not net-new distribution.
+
+Priority order (from the registry landscape):
+
+1. **Glama first.** Claim and verify the OrcaRouter listing; pursue the tier system. Glama is where enterprise buyers source MCP servers.
+2. **PulseMCP second.** If the server is genuinely high-quality, editorial curation surfaces it. (Note: PulseMCP currently has submissions paused — check status before pitching.)
+3. **Smithery third.** Already badged — push the hosted + Toolbox distribution.
+4. **mcp.so last.** Ensure ownership is claimed; it auto-indexes.
+
+**Why this is a prospecting channel, not just marketing:** every dev browsing "MCP servers" is already building agents, which means they already have the exact problem OrcaRouter solves — too many models, too much spend, no governance. A listing that's claimed, verified, and high-tier *is* a lead-gen asset.
+
+## Product Hunt playbook
+
+- Use launches and major updates (like OrcaCyber Zero 1.5) as Product Hunt moments.
+- The angle for indie hackers: **free tier, zero markup, 200+ models behind one key.**
+- The angle for security teams: **frontier cyber scores at ~1/10th the cost.**
+- Capture upvoters and commenters as leads — they self-identified as interested.
+
+## X / Twitter playbook
+
+- Engage on routing, model-cost, and AI-security threads with the same "lead with the problem" framing.
+- Amplify the OrcaCyber Zero benchmark/cost story (100% Cybench, $3/$7.50) — it's the most shareable, concrete hook.
+- Use the OrcaRouter account's existing posts as the anchor; reply and thread rather than cold-posting.
+
+---
+
+# PART 5 — Outreach sequences
+
+## Qualification checklist (before you invest in a prospect)
+
+- [ ] Is this a legitimate security team / red team / pentest firm / security-adjacent dev team?
+- [ ] Do they do *authorized* work? (required for access — non-negotiable)
+- [ ] Do they already build agents or call multiple models? (routing fit)
+- [ ] Do they have a stated pain: model cost, model selection, governance, or vuln-research throughput?
+- [ ] Is there a named benchmark/eval they care about? (your pilot anchor)
+
+## Cold DM (Discord / X) — problem-first
+
+> "Hey [name], saw your post about [pain point]. We dealt with that too. Our approach is pretty simple: we don't try to guess which model is 'best.' We just let your own tests set the bar, then we find the cheapest model that passes them. Happy to show you how we do it if you're interested. No hard sell or anything."
+
+## OrcaCyber-specific opener (for security prospects)
+
+> "Hey, noticed you're doing [vuln research / red teaming]. Quick question: how are you dealing with model costs for things like exploit dev? OrcaCyber Zero 1.5 just hit 100% on Cybench and it's only $3 per million tokens. It's gated to verified teams, but it might save you a ton of money. Worth a quick look?"
+
+## Pilot framing (from the routing playbook — reuse it)
+
+Lock the success metric before the pilot starts:
+- **Routing:** "Your tests still pass at the same rate, but you pay less for each one."
+- **Cyber:** "We'll test it on your own targets. If Zero can find or prove the same bugs as your current setup for less money, it's a win. If not, you keep what you have and we both learned something."
+
+Frame it as no-lose for the prospect. If their homegrown approach ties us or beats us, they keep it. He can't lose.
+
+---
+
+# PART 6 — Closing the Gap: SDR Operations
+
+## 1. Workspace Setup Checklist (How to provision a trial)
+
+When a prospect says "yes" to a pilot, follow these steps immediately:
+
+1.  **Create the Workspace:** Log in to the OrcaRouter console and create a new workspace named after the prospect (e.g., "Cassandra-Research-Pilot").
+2.  **Invite the Team:** Go to the **Members** tab and invite the prospect's email. Assign them the "Developer" or "Admin" role so they can create their own keys.
+3.  **Provision the Passkey (for OrcaCyber):** For prospects trialing OrcaCyber Zero, you must manually generate a **Security Research Passkey** in the workspace settings. Send this passkey to the prospect in your "Welcome" email.
+4.  **Set the Budget:** Under **Billing**, add a small starting credit (e.g., $50) to the workspace to kick off the trial.
+5.  **Share the Endpoint:** Remind them the endpoint is \`https://api.orcarouter.ai/v1\` and it's 100% OpenAI-compatible.
+
+## 2. Competitive Deep-Dive: Zero vs. The Field
+
+| Feature | OrcaCyber Zero 1.5 | Mythos Preview | GPT-4o (General) |
+|---|---|---|---|
+| **Price (In/Out)** | **$3.00 / $7.50** | $25.00 / $125.00 | $2.50 / $10.00 |
+| **Context Window** | 1M Tokens | 1M Tokens | 128K Tokens |
+| **Cyber Focus** | **P-0 / P-1 Exploit Dev** | Zero-Day Research | General Coding |
+| **Cybench Score** | **100%** | ~83.8% | Not Rated (High Risk) |
+| **Governance** | Built-in Firewall/Guardrails | None (Model only) | Basic Safety Filters |
+
+**The "Why Zero" Pitch:** "Mythos is great for academic zero-day research, but it's 10x the price. Zero is built for the daily grind of a red team—reproducing P-0 flaws and validating attack paths at a price that actually scales."
+
+## 3. The 3-Touch Community Cadence (Discord/X)
+
+Don't stop at one message. Use this sequence:
+
+*   **Day 1 (The Wedge):** "Saw your post about [pain]. We dealt with that too. We just let your tests set the bar and route to the cheapest model that passes. Interested in how?"
+*   **Day 3 (The Value Add):** "Hey, just saw this [relevant security news/benchmark]. Reminded me of your post. Also, we just put out a doc on how to cut Mythos costs by 90% using Zero. Want the link?"
+*   **Day 7 (The Soft Close):** "Last one from me—if you're still stuck on [pain], I can spin up a $50 trial workspace for you to test Zero against your own evals. No-lose for you. Let me know?"
+
+## 4. Social Proof: Who uses us?
+
+**The "Trillion-Dollar Tech Giant" Story:**
+"We can't always name names in public, but look at the biggest players in the space. One of the world's largest tech companies uses our technology for their internal reasoning research. They don't just 'buy' software; they 'do' the work with us. When the team that built the industry's leading reasoning models is looking at your routing and reasoning tech, you know the foundation is solid."
+
+**Anonymized Success Stories:**
+- **Top-10 MSSP:** Automated 40% of their vulnerability reproduction work using Zero, saving 15+ hours per week per analyst.
+- **Fintech Unicorn:** Cut their LLM spend by 65% in the first month by moving routine classification tasks from GPT-4o to routed open-source models.
+
+---
+
+# Appendix
+
+## Key links
+
+- OrcaRouter home: https://www.orcarouter.ai
+- OrcaRouter Cyber: https://www.orcarouter.ai/cyber
+- Models catalog: https://www.orcarouter.ai/models
+- Pricing: https://www.orcarouter.ai/pricing
+- MCP server (GitHub): https://github.com/Continuum-AI-Corp/orcarouter-mcp-server
+- X account: https://x.com/OrcaRouter
+
+## Registry landscape at a glance
+
+| Registry | Indexed | Quality system | Hosting | Ownership signal |
+|---|---|---|---|---|
+| Glama | ~89,700 | Tiered (incl. AAA) | Yes (~6k connectors) | Claim + verify |
+| Smithery | ~6,000+ | Verified badge | Yes (one-click) | Publish step |
+| PulseMCP | ~1,200+ | Editorial curation | No | Curator vetted |
+| mcp.so | ~10,000+ | Basic | No | Directory listing |
+
+## Internal note — OrcaRouter Tools skill (for agents)
+
+An \`@orcarouter/tools-skill\` is available that lets an agent run pay-per-call third-party tools (web search, scraping, enrichment) *through* OrcaRouter, billed to the workspace wallet under an agent budget. It uses \`/v1/tools\` endpoints (discover → inspect → run → balance) and requires an \`ORCA_KEY\` environment variable. **If we want our internal agent efforts to route through OrcaRouter's tool router, an operator needs to set \`ORCA_KEY\` first** — every call returns 401 without it. Not currently configured in this workspace.`;
+        const cheatsheetMd = `# The "Fluff-to-Fact" Cheat Sheet
+**Goal:** Stop selling "products" and start solving "math problems." Use this to ensure every message you send actually gets a reply.
+
+---
+
+## 1. The Anti-Fluff Framework
+
+| Rule | Fluff (Don't do this) | Resonant (Do this) |
+|---|---|---|
+| **Math is Truth** | "We help you save money on AI." | "We cut your Mythos bill from $25 to $3 per million tokens while keeping your 100% Cybench score." |
+| **Evidence over Alerts** | "Our model finds more bugs." | "Zero won't report a bug unless it can write the exploit script to prove it's a real P-0 flaw." |
+| **Lurk then Bridge** | "Check out our new AI router!" | "I saw you're struggling with rate limits. We built a gateway that handles that automatically—happy to share the config." |
+| **High School Level** | "Leveraging adaptive paradigms for optimization." | "We pick the cheapest model for every request so you don't have to." |
+| **Success Metric First** | "Let's hop on a call to chat." | "If we don't beat your current cost-per-pass in a $50 trial, we stop there. Sound fair?" |
+
+---
+
+## 2. The "Fluff" Litmus Test
+Before you hit send, ask yourself:
+- [ ] **Is there a number?** (e.g., $3, 88%, 1M context)
+- [ ] **Is there a specific pain?** (e.g., P-0 flaws, Mythos costs, rate limits)
+- [ ] **Would a high schooler get it?** (No buzzwords like "synergy" or "frontier")
+- [ ] **Is it "No-Lose"?** (e.g., "If we don't beat your current setup, you keep it")
+
+---
+
+## 3. Message Grader & Optimizer
+**Instructions:** Paste your draft and the prospect's context below. Then, send this file back to me (SuperAgent) and I will grade it and rewrite it for you.
+
+### [INPUT AREA]
+**Prospect Context (LinkedIn/X/Discord post):**
+> [Paste context here]
+
+**Your Draft Message:**
+> [Paste your draft here]
+
+---
+
+### [SUPERAGENT OPTIMIZATION AREA]
+*(I will fill this part out when you send the file back to me)*
+
+**Grade:** /10
+**Fluff Detected:** 
+**Optimized Version:** 
+**Why it will resonate:** 
+`;
+
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function loadContent() {
+            document.getElementById('playbookContent').innerHTML = marked.parse(playbookMd);
+            document.getElementById('cheatsheetContent').innerHTML = marked.parse(cheatsheetMd);
+        }
+
         function generateRequest() {
             const context = document.getElementById('context').value;
             const draft = document.getElementById('draft').value;
+            if (!context || !draft) return alert("Fill in both fields.");
 
-            if (!context || !draft) {
-                alert("Please fill in both fields.");
-                return;
-            }
-
-            const requestText = `Please grade and optimize this outreach message for me.
+            const requestText = \`Please grade and optimize this outreach message for me.
 
 PROSPECT CONTEXT:
-${context}
+\${context}
 
 MY DRAFT MESSAGE:
-${draft}
+\${draft}
 
 Please provide:
 1. A grade out of 10.
 2. Specific "fluff" detected.
 3. An optimized version (High School reading level, math-focused, no em-dashes).
-4. Why the new version will resonate.`;
+4. Why the new version will resonate.\`;
 
             document.getElementById('copyBox').innerText = requestText;
             document.getElementById('resultArea').style.display = 'block';
-            window.scrollTo(0, document.body.scrollHeight);
         }
 
         function copyToClipboard() {
-            const text = document.getElementById('copyBox').innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                alert("Copied! Now paste this into your chat with SuperAgent.");
-            });
+            navigator.clipboard.writeText(document.getElementById('copyBox').innerText);
+            alert("Copied! Paste this into your chat with SuperAgent.");
         }
+
+        loadContent();
     </script>
 </body>
 </html>
