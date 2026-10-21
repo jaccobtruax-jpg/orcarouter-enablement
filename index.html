@@ -268,7 +268,7 @@
                     <tbody>
 <tr><td><strong>Noah</strong></td><td>1 / 3</td><td>Needs 2 more</td></tr>
 <tr><td><strong>Niha</strong></td><td>1 / 3</td><td>Needs 2 more</td></tr>
-<tr><td><strong>Rayyan</strong></td><td>2 / 3</td><td>Needs 1 more</td></tr>
+<tr><td><strong>Rayyan</strong></td><td>3 / 3</td><td>Complete</td></tr>
 <tr><td><strong>Ifrah</strong></td><td>3 / 3</td><td>Complete</td></tr>
 <tr><td><strong>Kathy</strong></td><td>4 / 3</td><td>Complete</td></tr>
 <tr><td><strong>Anna</strong></td><td>3 / 3</td><td>Complete</td></tr>
@@ -303,7 +303,7 @@
 <div class="example"><div class="fmt">3. Cold DM · OrcaCyber intro (Deloitte)</div><div class="msg">Hey I&#x27;m with OrcaCyber and noticed you work in security at Deloitte. OrcaCyber offers powerful AI models for cybersecurity, and I thought it might be worth a look. Would you be open to a quick 15-minute chat to explore it?</div></div>
 <div class="example"><div class="fmt">4. Cold DM · casual (Deloitte)</div><div class="msg">I am with Orca cyber, noticed you handle security at Dilliote. Orca Cyber is like a king of cyber models thought it might be worth a peek!</div></div>
 </div>
-<div class="rep-card"><div class="rep-head"><span class="avatar">R</span><div><div class="name">Rayyan</div><span class="rep-status ">2/3 · Needs 1 more</span></div></div>
+<div class="rep-card"><div class="rep-head"><span class="avatar">R</span><div><div class="name">Rayyan</div><span class="rep-status done">3/3 · Complete</span></div></div>
 <div class="example"><div class="fmt">1. Cold DM · long form (Szymon)</div><div class="msg">Hi Szymon,
 
 I remember you mentioned that you&#x27;re testing different models and aren&#x27;t tied to a single provider. In that case, I have something for you.
@@ -318,6 +318,7 @@ Best regards,
 Rayyan Arshad
 Technical Sales Engineer, OrcaRouter</div></div>
 <div class="example"><div class="fmt">2. Cold DM · Mythos alternative (Danielle)</div><div class="msg">Hey Danielle, saw your interest in Mythos. Since access to models like Mythos is still restricted, thought you might find OrcaCyber Zero 1.5 interesting. It&#x27;s available via API, with a 1M-token context window, and is built for vulnerability research and exploit validation. Could be worth exploring as an accessible alternative.</div></div>
+<div class="example"><div class="fmt">3. Cold DM · Igor (curiosity opener, follow up with evals)</div><div class="msg">Hey Igor, I&#x27;ve been following your posts on pentesting tools and techniques, really interesting stuff. Was curious, have you come across any AI models that are genuinely capable at cybersecurity tasks without the usual restrictions getting in the way?</div></div>
 </div>
 <div class="rep-card"><div class="rep-head"><span class="avatar">I</span><div><div class="name">Ifrah</div><span class="rep-status done">3/3 · Complete</span></div></div>
 <div class="example"><div class="fmt">1. Cold DM · lab reproducibility + pilot (Caleb)</div><div class="msg">Hey Caleb, noticed SolaSec is an ANAB-accredited testing lab. That means reproducibility and documented evidence are baked into how you work.
@@ -506,7 +507,9 @@ The core promise, straight from the company: **fewer reports, more validated and
 | Hosting | Hosted API only via OrcaRouter (no weights, no self-host) |
 | Price | $3.00 / $7.50 per 1M tokens (in / out); cached reads $0.75/M |
 | API | OpenAI-compatible endpoint |
-| **Vulnerability Focus** | **P-0 and P-1 (Critical/Urgent)** |
+| **Vulnerability Focus** | **P-0 and P-1 (Critical/Urgent) and zero-days** |
+| Benchmarks (Zero 1.5) | **CyberGym 98%+ success on the FULL eval, run with the OrcaCyber harness (our number)** · Cybench 100% (agent run, no execution limits) · CVE-Bench 95.8% (evaluable subset) · HumanEval+ 93.9% · SWE-bench Pro V2 76.5% (last four vendor-reported) |
+| Sibling: OrcaCyber Ultra | Flagship of the trillion-parameter series; whole-repo code scanning, multi-step reasoning; 1M ctx / 131K out; $5/$10 per 1M; no published benchmarks; 8.8 tok/s (slow) |
 
 ## P-0 and P-1: The "Hair on Fire" Advantage
 
@@ -531,6 +534,8 @@ In cybersecurity, vulnerabilities are ranked by priority. OrcaCyber Zero is spec
 - **KYC (Know Your Customer):** Because OrcaCyber Zero is powerful, we verify who is using it. You can't just sign up with a burner email; we verify the business.
 - **Harness / Agent:** A "harness" is the code scaffolding you wrap around a model to make it an "agent" (something that can actually *do* things, like run terminal commands or edit files). 
 - **"Connects to any software":** Through the OrcaRouter gateway and MCP (Model Context Protocol), OrcaCyber Zero can be plugged directly into your existing dev tools, security logs, or terminal.
+
+**Verification ladder (how access works, from the site):** payment method on file → identity verified (gov ID) → **business verified** (registered company + domain claim + sanctions screen; this rung unlocks the cyber models) → contracted researcher (named researchers, signed scope, contract, negotiated caps).
 
 **Why this is important:** It means OrcaCyber Zero isn't just a chatbot you talk to. It's a specialized brain you can drop into your existing security automation.
 
@@ -622,7 +627,7 @@ The full pitch: **"Cyber models for your red team. Gateway controls for your blu
 
 ## The one-liner
 
-> "OrcaCyber Zero 1.5 is a 1M-context cybersecurity model that reports 100% on Cybench and 95.8% on CVE-Bench, at $3/$7.50 per 1M tokens — roughly a tenth of the cost of the named frontier alternative. It runs behind the same gateway controls you'd use to govern any agent."
+> "OrcaCyber Zero 1.5 is a 1M-context cybersecurity model for offensive security work: 98%+ on our full CyberGym eval, 100% on Cybench, 95.8% on CVE-Bench, at $3/$7.50 per 1M tokens, roughly a tenth of the cost of Mythos. It plugs into any harness or agent and runs behind the same gateway controls you use for every model."
 
 ## Key value props (pick 2–3 per conversation)
 
@@ -770,6 +775,58 @@ Don't stop at one message. Use this sequence:
 - **Fintech Unicorn:** Cut their LLM spend by 65% in the first month by moving routine classification tasks from GPT-4o to routed open-source models.
 
 ---
+
+# PART 7 — Site, marketing & messaging alignment (Oct 2026)
+
+Additive layer on top of the earlier parts. Read after Part 2 (positioning) and before the Appendix.
+
+## What the site now says (use this language)
+
+- **H1 positioning (canonical):** "Cyber models for your red team. Gateway controls for your blue team."
+- **Zero's story:** "Focused on P0/P1 vulnerabilities and zero-days, optimized to minimize false positives." Powered by the OrcaCyber harness.
+- **Benchmark disclosure (quote it when asked):** "Cybench, CVE-Bench, HumanEval+ and SWE-bench Pro V2 are reported by the model vendor. CyberGym is the success rate on the full eval, run with the OrcaCyber harness."
+- **Defender stack (the blue-team half):** Agent Firewall (tool and MCP calls graded ALLOW/REVIEW/BLOCK before they run), Guardrails (PII Shield, blocked pre-billing costs $0.00), OrcaCode Review (severity rules and a merge gate on PRs), Compliance and Governance (32 framework packs with exportable evidence). Site disclaimer: "Coverage means automated runtime controls. It is not a certification."
+
+## The model family (three tiers now)
+
+| Model | Job | Price | Notes |
+|---|---|---|---|
+| OrcaCyber Zero 1.5 | P0/P1 + zero-days, exploit validation, harness reasoning | $3/$7.50 | CyberGym 98%+ full eval (our number); Cybench 100%, CVE-Bench 95.8% (vendor-reported) |
+| OrcaCyber Ultra | Whole-repo code scanning, multi-step reasoning, audit follow-up | $5/$10 | 1M ctx / 131K out; structured JSON findings; no benchmarks published yet; slow (8.8 tok/s) |
+| OrcaCyber Nano 1.0 (HF) | Local cyber defense under 16GB | free | #1 of 21 models in an independent 16GB community eval (89.8/100, 72 tasks, 7 categories); SWE-bench Verified 78.4% |
+
+**Cross-sell rule:** Zero is the flagship pitch. When a prospect says "I need to scan the whole codebase", that is Ultra. When they want to test locally, that is Nano or the FP8 Qwen model on Hugging Face (127k downloads).
+
+## Yi's messaging standard (the bar, from the first review)
+
+1. Keep it short.
+2. Focus on the model and its offensive capabilities.
+3. Include the evals.
+4. Say it plugs into any harness or agent.
+5. Own the model: "we built", "we tasked it", never "according to the manufacturer".
+6. No AI slop.
+
+**Template that satisfies all of it:** "We built [model] for [offensive capability]. [One proof beat: we tasked it with X and it built a working PoC]. Scores [evals]. Drops into [harness or agent] with a one-line change. [Short CTA]"
+
+## X marketing voice and proof beats (borrow these)
+
+- **Flagship pinned post (58K views):** "We tasked OrcaCyber Zero 1.5 with investigating the critical PHP RCE vulnerabilities. It autonomously built a complete working proof-of-concept (PoC)." Lead outreach with this story.
+- **Nano ranking post:** #1 of 21 models in an independent community eval for 16GB GPUs, 89.8/100.
+- **Incident posts:** hacker groups targeting AI developers for API keys; LiteLLM compromised again (23M weekly downloads, one poisoned update). Both are strong "caught my eye" triggers.
+- **Blog openers:** "Seven South Korean Banks Were Breached With an Open-Source AI Pentest Agent, Investigators Say a Human Was Still Driving It"; "GitHub Copilot CLI Decrypted a Web Page and Mailed Out a .env File in 28 Seconds."
+
+## What Yi flagged (the anti-patterns)
+
+- "According to the manufacturer, it achieves 100% on Cybench" (Rayyan): we make the model. Own it.
+- Long gating essays (Noah): "this is pretty much all just AI slop." Short beats thorough.
+- Full rewrites live on the Coaching tab under each rep.
+
+## Key links (updated)
+
+- Cyber hub: https://www.orcarouter.ai/cyber
+- Zero model page: https://www.orcarouter.ai/orcacyber-zero
+- Ultra model page: https://www.orcarouter.ai/orcacyber-ultra
+- X: https://x.com/OrcaRouter
 
 # Appendix
 
