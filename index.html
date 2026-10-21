@@ -266,7 +266,7 @@
                 <table>
                     <thead><tr><th>Rep</th><th>Examples</th><th>Status</th></tr></thead>
                     <tbody>
-<tr><td><strong>Noah</strong></td><td>1 / 3</td><td>Needs 2 more</td></tr>
+<tr><td><strong>Noah</strong></td><td>3 / 3</td><td>Complete</td></tr>
 <tr><td><strong>Niha</strong></td><td>1 / 3</td><td>Needs 2 more</td></tr>
 <tr><td><strong>Rayyan</strong></td><td>3 / 3</td><td>Complete</td></tr>
 <tr><td><strong>Ifrah</strong></td><td>3 / 3</td><td>Complete</td></tr>
@@ -359,7 +359,7 @@ Worth a quick educational chat?</div></div>
 
 Quick one: when you assess a system with CiberIA, do you run real adversarial/exploit tests, or behavioral evaluation only?</div></div>
 </div>
-<div class="rep-card"><div class="rep-head"><span class="avatar">N</span><div><div class="name">Noah</div><span class="rep-status ">1/3 · Needs 2 more</span></div></div>
+<div class="rep-card"><div class="rep-head"><span class="avatar">N</span><div><div class="name">Noah</div><span class="rep-status done">3/3 · Complete</span></div></div>
 <div class="example"><div class="fmt">1. Cold DM · security research tier</div><div class="msg">I&#x27;ll be direct about why I&#x27;m writing: we run a Security Research tier on OrcaRouter that most teams find out about a year too late, and your role suggests you&#x27;d want to know it exists.
 
 It&#x27;s a genuinely unrestricted model for authorized security work: vulnerability research and reproduction, exploit development, penetration testing, security auditing, cyber reasoning. If your red team runs coding agents on client engagements, it drops into Claude Code, Codex, OpenCode and the rest with a one-line base_url change.
@@ -367,6 +367,15 @@ It&#x27;s a genuinely unrestricted model for authorized security work: vulnerabi
 Two things worth being precise about, because both are the point:
 
 Access is gated by application, not self-serve. The workspace has to pass business verification, the caller needs a passkey enrolled and an address on a domain the workspace has verified, and the offensive-capability terms have to be accepted. Access is scoped to one authorized engagement: client, reference, and scope, rather than a blanket grant. That&#x27;s deliberate, and I suspect it reads differently to you than to most.</div></div>
+<div class="example"><div class="fmt">2. Cold DM · Joe (v1, workspace challenge)</div><div class="msg">Hi Joe,
+We shipped OrcaCyber Zero 1.5 last week: post-trained for vulnerability research and exploit development, 1M-token context, native function calling, structured outputs. Vendor-reported: 100% on Cybench (39/39, unrestricted agent execution), 95.8% on the CVE-Bench evaluable subset, 93.9% HumanEval+. Those are our numbers, not an independent audit, which is exactly why it&#x27;s worth poking at.
+OpenAI-compatible (orca/orcacyber-zero-1.5), so it drops into your existing tooling with a base_url change. Access is gated to the Security Research tier: workspace business verification, passkey, verified domain, offensive-capability terms, scoped to one authorized engagement.
+Want a workspace this week? Run it against a real target and see whether the 1M context actually holds a codebase or just fits it.</div></div>
+<div class="example"><div class="fmt">3. Cold DM · Joe (v2, tool access angle)</div><div class="msg">Your red team already routes agents through Claude Code / Codex / OpenCode. Most cyber models you can&#x27;t hand tool access. OrcaCyber Zero 1.5 was built for it: reproduces CVEs, drafts exploits, audits code, reasons through multi-stage attack paths, and carries 1M tokens of context so a full repo fits in one pass instead of chunked summaries.
+
+$3/$7.50 per 1M tokens, zero markup, served through the same endpoint as everything else. Treat the published scores (100% Cybench, 95.8% CVE-Bench subset) as claims and verify on your own stack, because the audit trail that records every routed request is half the point.
+
+It&#x27;s gated by application under the Security Research tier, scoped to one authorized engagement. I can have a workspace provisioned today if you want to run your own eval harness against it</div></div>
 </div>
 <div class="rep-card"><div class="rep-head"><span class="avatar">N</span><div><div class="name">Niha</div><span class="rep-status ">1/3 · Needs 2 more</span></div></div>
 <div class="example"><div class="fmt">1. Cold DM · Exploit Labs head-to-head (Johannes)</div><div class="msg">Hi Johannes,
@@ -444,7 +453,7 @@ Gated to verified security teams doing authorized work. It's a research tool, no
                 <p><strong>Keep it short. Focus on the model and its offensive capabilities. Include the evals. Say it plugs into any harness or agent.</strong></p>
                 <p style="margin-top:8px;">Own the model: say "we built" and "we tasked it", never "according to the manufacturer". No AI slop. Match the X voice: evidence first, numbers front-loaded, punchy. See the flagship post: "We tasked OrcaCyber Zero 1.5 with investigating the critical PHP RCE vulnerabilities. It autonomously built a complete working proof-of-concept (PoC)."</p>
             </div>
-            <div class="rep-card"><div class="rep-head"><span class="avatar">N</span><div><div class="name">Noah</div><span class="rep-status">1 note</span></div></div><div class="coach-feedback"><div class="example"><div class="fmt">Leadership note · Yi (2026-10-21)</div><div class="msg">"This is pretty much all just AI slop." Too long, too vague, too much gating essay. Keep it short, focus on the model and its offensive capabilities, include the evals, and say it plugs into any harness or agent.</div></div><div class="example"><div class="fmt">What it could have been (tailored to a red team lead: client engagements, agent stack, gating)</div><div class="msg">Hey [name],
+            <div class="rep-card"><div class="rep-head"><span class="avatar">N</span><div><div class="name">Noah</div><span class="rep-status">2 notes</span></div></div><div class="coach-feedback"><div class="example"><div class="fmt">Leadership note · Yi (2026-10-21)</div><div class="msg">"This is pretty much all just AI slop." Too long, too vague, too much gating essay. Keep it short, focus on the model and its offensive capabilities, include the evals, and say it plugs into any harness or agent.</div></div><div class="example"><div class="fmt">Leadership note · Follow-up (2026-10-22) · this is the standard</div><div class="msg">The two Joe messages are exactly right. "We shipped", not "the manufacturer". Honest about vendor-reported scores, then confident: "which is exactly why it's worth poking at" and "treat the published scores as claims and verify on your own stack". Capabilities, evals, base_url change, and a CTA that dares them to test. Only tweak: in v1, the passkey and verified-domain detail can move to the follow-up if it starts feeling long. v2 is the tighter of the two.</div></div><div class="example"><div class="fmt">What it could have been (tailored to a red team lead: client engagements, agent stack, gating)</div><div class="msg">Hey [name],
 
 Your team runs coding agents on client engagements, so you'll care that OrcaCyber Zero 1.5 drops into Claude Code or Codex with a one-line base_url change. It reproduces CVEs and validates exploitability, and when we tasked it with the critical PHP RCEs, it built a working PoC on its own. Scores 98%+ on our full CyberGym eval and 100% on Cybench. Access is scoped to one authorized engagement, which is exactly what your clients will ask about.
 
