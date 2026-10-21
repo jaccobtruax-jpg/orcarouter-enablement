@@ -268,6 +268,25 @@
                 </table>
             </div>
 
+            <!-- SUBMISSION BOX -->
+            <div class="card">
+                <span class="badge">Submit here</span>
+                <h3>Submit your OrcaCyber examples</h3>
+                <p>Pick your name and the format, paste your message, then hit the button. It copies your submission formatted with attribution, ready to send back. Target: at least 3 examples per rep.</p>
+                <label for="repName">Rep</label>
+                <select id="repName" style="width:100%; padding:12px; border:1px solid var(--border); border-radius:8px; font-size:14px; margin-bottom:16px; background:#fff;">
+                    <option>Noah</option><option>Niha</option><option>Rayyan</option><option>Ifrah</option><option>Kathy</option><option>Anna</option><option>Sam</option>
+                </select>
+                <label for="repFmt">Format</label>
+                <select id="repFmt" style="width:100%; padding:12px; border:1px solid var(--border); border-radius:8px; font-size:14px; margin-bottom:16px; background:#fff;">
+                    <option>LinkedIn post</option><option>Cold DM</option><option>Sales pitch</option><option>One-liner</option><option>Other</option>
+                </select>
+                <label for="repMsg">Your message</label>
+                <textarea id="repMsg" placeholder="Paste your OrcaCyber example message here..."></textarea>
+                <button class="btn" onclick="copySubmission()">Copy formatted submission</button>
+                <div id="subResult" class="copy-box" style="display:none; margin-top:16px;"></div>
+            </div>
+
             <!-- REFERENCE SET (the bar) -->
             <div class="rep-card reference">
                 <div class="rep-head"><span class="avatar" style="background:#666">REF</span><div><div class="name">Reference set</div><span class="rep-status done">The bar · from the enablement playbook</span></div></div>
@@ -716,6 +735,20 @@ Please provide:
         function copyToClipboard() {
             navigator.clipboard.writeText(document.getElementById('copyBox').innerText).then(() => {
                 alert("Copied! Paste this into your chat with SuperAgent.");
+            });
+        }
+
+        function copySubmission() {
+            const rep = document.getElementById('repName').value;
+            const fmt = document.getElementById('repFmt').value;
+            const msg = document.getElementById('repMsg').value;
+            if (!msg.trim()) return alert("Paste your message first.");
+            const out = `REP: ${rep}\nFORMAT: ${fmt}\n\n${msg.trim()}`;
+            const box = document.getElementById('subResult');
+            box.innerText = out;
+            box.style.display = 'block';
+            navigator.clipboard.writeText(out).then(() => {
+                alert("Copied with attribution! Send this back to the team lead.");
             });
         }
 
