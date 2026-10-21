@@ -211,11 +211,17 @@
                 <p>Paste the prospect's context and your draft. We'll grade it and rewrite it to actually get replies.</p>
             </div>
             <div class="grader-box">
+                <label for="graderRep">Rep (preselect)</label>
+                <select id="graderRep" style="width:100%; padding:12px; border:1px solid var(--border); border-radius:8px; font-size:14px; margin-bottom:16px; background:#fff;">
+                    <option value="">Select your name</option>
+                    <option>Noah</option><option>Niha</option><option>Rayyan</option><option>Ifrah</option><option>Kathy</option><option>Anna</option><option>Sam</option>
+                </select>
                 <label for="context">Prospect Context</label>
                 <textarea id="context" placeholder="Paste their LinkedIn post, X thread, or Discord question here..."></textarea>
                 <label for="draft">Your Draft Message</label>
                 <textarea id="draft" placeholder="Paste the message you want to send..."></textarea>
                 <button class="btn" onclick="generateRequest()">Generate Grading Request</button>
+                <p style="font-size:12px; color:var(--muted); margin-top:10px;">Pick your name and your base draft will also be saved to your Rep Messaging card automatically.</p>
             </div>
             <div id="resultArea" style="display:none; margin-top: 20px;">
                 <div class="card">
@@ -780,7 +786,13 @@ Before you hit send, ask yourself:
         function generateRequest() {
             const context = document.getElementById('context').value;
             const draft = document.getElementById('draft').value;
+            const rep = document.getElementById('graderRep').value;
             if (!context || !draft) return alert("Fill in both fields.");
+            if (rep) {
+                localStorage.setItem('orcacyber_grader_rep', rep);
+                saveSubmission(rep, draft);
+                renderLocalSubs();
+            }
 
             const requestText = `Please grade and optimize this outreach message for me.
 
@@ -820,6 +832,75 @@ Please provide:
                 alert("Copied with attribution! Send this back to the team lead.");
             });
         }
+
+        // --- grader auto-capture: base drafts land in the rep's messaging card (browser-local) ---
+        function getSubs() {
+            try { return JSON.parse(localStorage.getItem('orcacyber_subs') || '[]'); } catch (e) { return []; }
+        }
+        function saveSubmission(rep, msg) {
+            const subs = getSubs();
+            subs.push({ rep: rep, msg: msg.trim(), ts: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) });
+            localStorage.setItem('orcacyber_subs', JSON.stringify(subs));
+        }
+        function renderLocalSubs() {
+            const subs = getSubs();
+            if (!subs.length) return;
+            const byRep = {};
+            subs.forEach(s => { (byRep[s.rep] = byRep[s.rep] || []).push(s); });
+            document.querySelectorAll('.rep-card').forEach(card => {
+                const nameEl = card.querySelector('.name');
+                if (!nameEl || !byRep[nameEl.textContent]) return;
+                const rep = nameEl.textContent;
+                const list = byRep[rep];
+                let div = card.querySelector('.local-subs');
+                if (!div) {
+                    div = document.createElement('div');
+                    div.className = 'local-subs';
+                    const h = document.createElement('div');
+                    h.className = 'fmt';
+                    h.style.cssText = 'margin-top:18px;';
+                    h.textContent = 'Auto-captured from Message Grader';
+                    div.appendChild(h);
+                    card.appendChild(div);
+                }
+                const seen = (div.dataset.seen || '').split('|').filter(Boolean);
+                list.forEach(s => {
+                    const key = s.ts + s.msg;
+                    if (seen.includes(key)) return;
+                    const ex = document.createElement('div');
+                    ex.className = 'example';
+                    const f = document.createElement('div');
+                    f.className = 'fmt';
+                    f.textContent = 'Via Message Grader · ' + s.ts;
+                    const m = document.createElement('div');
+                    m.className = 'msg';
+                    m.textContent = s.msg;
+                    ex.appendChild(f); ex.appendChild(m);
+                    div.appendChild(ex);
+                    seen.push(key);
+                });
+                div.dataset.seen = seen.join('|');
+                const st = card.querySelector('.rep-status');
+                if (st) st.textContent = list.length + ' local · auto-captured';
+            });
+            document.querySelectorAll('#team table tbody tr').forEach(r => {
+                const name = r.querySelector('td strong');
+                if (!name || !byRep[name.textContent]) return;
+                const countTd = r.querySelectorAll('td')[1];
+                const base = (countTd.textContent.match(/[\d]+\s*\/\s*[\d]+/) || ['0/3'])[0];
+                countTd.textContent = base + ' +' + byRep[name.textContent].length + ' local';
+            });
+        }
+
+        // restore grader rep preselect + render any auto-captured submissions
+        (function () {
+            try {
+                const saved = localStorage.getItem('orcacyber_grader_rep');
+                const sel = document.getElementById('graderRep');
+                if (saved && sel) sel.value = saved;
+            } catch (e) { /* storage unavailable */ }
+            renderLocalSubs();
+        })();
 
         loadContent();
     </script>
