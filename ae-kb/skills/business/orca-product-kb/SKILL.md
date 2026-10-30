@@ -29,7 +29,7 @@ The company behind it is a group of AI researchers who "published the paper, the
 
 - **One endpoint in front of 200+ models** (OpenAI, Anthropic, Gemini, Llama, Mistral, DeepSeek, Grok, Qwen, Moonshot, Cohere, AWS Bedrock, Azure OpenAI). Adoption is a one-line swap: change `base_url` to `https://api.orcarouter.ai/v1` and set `model = "orcarouter/auto"`. Naming a model explicitly bypasses routing.
 - **Zero markup on API calls** (user-confirmed). For fee/BYOK specifics, reference **orcarouter.ai/pricing** in front of prospects, never recite from memory.
-- **Open core**: the gateway code is public (Continuum-AI-Corp/OrcaRouter-O2). OrcaRouter-Lite is the free, self-hostable version with the same API surface. Line used with prospects: "the escape hatch that makes lock-in moot."
+- **Open core**: the gateway is open source (MIT); the self-hostable distribution is Continuum-AI-Corp/OrcaRouter-Lite. Verify the exact repo name before naming it to a prospect. Line used with prospects: "the escape hatch that makes lock-in moot."
 - **Free access tier** plus paid plans (see `orca-pricing-kb` for the exact tiers and the floor-not-fee deal structure).
 
 ## How routing works (plain-English version)
@@ -77,7 +77,7 @@ Product details worth knowing:
 | Routing accuracy | 75.5% RouterArena base; 99% with escalation | Vendor-reported. The 99% is the production config (escalation on), NOT a leaderboard number. |
 | Cost savings | 40%+ lower inference spend | "Internal benchmarks" per PR. Vendor claim. The 30-day replay pilot is how it becomes the prospect's number. |
 | Quality delta | <1% (99% of target quality) | Vendor claim. |
-| Markup | 0% on tokens, 0% BYOK fees | Structural, verifiable on the pricing page. |
+| Markup | 0% on tokens (Free/Team); BYOK may carry a platform fee | Structural on tokens; BYOK terms on the pricing page. |
 | Scale | 1M simultaneous routing decisions (peak) | Vendor claim. |
 | Reliability | 100% observed uptime May-Aug 2026; 99.99% SLA (Enterprise); <50ms mid-stream failover | Status page showed all operational, zero incidents. |
 | Decision cost | Microseconds, CPU; no extra model call; no GPU in path | Engineering fact, reproducible. |
