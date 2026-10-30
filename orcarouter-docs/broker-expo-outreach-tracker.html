@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Broker Expo NYC 2026 — Sponsor Outreach Tracker</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --card: #141414;
+    --card-hover: #1a1a1a;
+    --border: #262626;
+    --text: #f5f5f5;
+    --text-muted: #888;
+    --accent: #fff;
+    --orca: #4af;
+    --orca-bg: rgba(68, 170, 255, 0.08);
+    --orca-border: rgba(68, 170, 255, 0.2);
+    --flash: #2ecc71;
+    --flash-bg: rgba(46, 204, 113, 0.08);
+    --flash-border: rgba(46, 204, 113, 0.2);
+    --both: #f0a;
+    --both-bg: rgba(255, 0, 170, 0.08);
+    --both-border: rgba(255, 0, 170, 0.2);
+    --priority-high: #e74c3c;
+    --priority-med: #f39c12;
+    --priority-low: #7f8c8d;
+    --status-pending: #888;
+    --status-sent: #f39c12;
+    --status-replied: #2ecc71;
+    --status-meeting: #4af;
+    --status-closed: #e74c3c;
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 24px 32px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+  header .top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: var(--accent);
+  }
+  header .subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  .event-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--card-hover);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+  .event-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--flash); }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: flex;
+    gap: 12px;
+    padding: 20px 32px;
+    flex-wrap: wrap;
+  }
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    min-width: 120px;
+    flex: 1;
+  }
+  .stat-card .stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .stat-card .stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+  }
+
+  /* FILTERS */
+  .filters {
+    display: flex;
+    gap: 8px;
+    padding: 0 32px 20px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .filters .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    margin-right: 4px;
+  }
+  .filter-pill {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text-muted);
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .filter-pill:hover { border-color: #555; color: var(--text); }
+  .filter-pill.active { background: var(--accent); color: #000; border-color: var(--accent); }
+  .filter-pill.product-orca.active { background: var(--orca); color: #000; border-color: var(--orca); }
+  .filter-pill.product-flash.active { background: var(--flash); color: #000; border-color: var(--flash); }
+  .filter-pill.product-both.active { background: var(--both); color: #fff; border-color: var(--both); }
+  .search-input {
+    margin-left: auto;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 12px;
+    color: var(--text);
+    outline: none;
+    min-width: 180px;
+  }
+  .search-input:focus { border-color: #555; }
+  .search-input::placeholder { color: var(--text-muted); }
+
+  /* TABLE */
+  .table-wrap {
+    padding: 0 32px 40px;
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 13px;
+  }
+  thead th {
+    text-align: left;
+    padding: 10px 14px 10px 0;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+  }
+  thead th:first-child { padding-left: 16px; }
+  thead th:last-child { padding-right: 16px; }
+  tbody td {
+    padding: 12px 14px 12px 0;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  tbody td:first-child { padding-left: 16px; }
+  tbody td:last-child { padding-right: 16px; }
+  tbody tr { transition: background 0.15s; }
+  tbody tr:hover { background: var(--card-hover); }
+
+  .company-name {
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: -0.2px;
+  }
+  .company-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+    max-width: 280px;
+  }
+
+  /* PRODUCT BADGES */
+  .product-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .product-badge.orca { background: var(--orca-bg); color: var(--orca); border: 1px solid var(--orca-border); }
+  .product-badge.flash { background: var(--flash-bg); color: var(--flash); border: 1px solid var(--flash-border); }
+  .product-badge.both { background: var(--both-bg); color: var(--both); border: 1px solid var(--both-border); }
+
+  /* PRIORITY */
+  .priority-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+  }
+  .priority-dot.high { background: var(--priority-high); box-shadow: 0 0 8px var(--priority-high); }
+  .priority-dot.med { background: var(--priority-med); }
+  .priority-dot.low { background: var(--priority-low); }
+  .priority-label { font-size: 11px; font-weight: 600; }
+
+  /* STATUS */
+  .status-select {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 6px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    outline: none;
+    min-width: 100px;
+  }
+  .status-select:focus { border-color: #555; }
+
+  /* NOTES */
+  .notes-btn {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 5px 10px;
+    font-size: 11px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .notes-btn:hover { border-color: #555; color: var(--text); }
+  .notes-btn.has-note { color: var(--flash); border-color: var(--flash-border); }
+
+  /* ANGLE POPOVER */
+  .angle-trigger {
+    cursor: pointer;
+    border-bottom: 1px dashed var(--border);
+    transition: all 0.2s;
+  }
+  .angle-trigger:hover { border-color: var(--text-muted); }
+  .angle-full { display: none; }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    max-width: 560px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  .modal h3 {
+    font-size: 17px;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+  .modal p, .modal .detail {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+  .modal .detail strong {
+    color: var(--text);
+  }
+  .modal .copy-block {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--text);
+    white-space: pre-wrap;
+    font-family: inherit;
+    margin: 12px 0;
+    position: relative;
+  }
+  .modal .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 4px 10px;
+    font-size: 10px;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .modal .copy-btn:hover { color: var(--text); border-color: #555; }
+  .modal .close-btn {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 8px 20px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px;
+    float: right;
+  }
+  .modal .close-btn:hover { opacity: 0.9; }
+  .modal textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px;
+    font-size: 12px;
+    color: var(--text);
+    font-family: inherit;
+    resize: vertical;
+    min-height: 80px;
+    outline: none;
+  }
+  .modal textarea:focus { border-color: #555; }
+  .modal .save-note-btn {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 6px;
+  }
+  .modal .save-note-btn:hover { opacity: 0.9; }
+
+  /* KEY SECTION */
+  .key-section {
+    padding: 24px 32px;
+  }
+  .key-section h2 {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .target-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 12px;
+  }
+  .target-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .target-card:hover { border-color: #555; background: var(--card-hover); }
+  .target-card.priority-high { border-left: 3px solid var(--priority-high); }
+  .target-card .tc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+  .target-card .tc-name {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+  }
+  .target-card .tc-angle {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .target-card .tc-products {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  /* EMPTY STATE */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+  }
+  .empty-state .empty-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+    opacity: 0.3;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    header, .stats-bar, .filters, .table-wrap, .key-section { padding-left: 16px; padding-right: 16px; }
+    .search-input { margin-left: 0; width: 100%; }
+    .stats-bar { flex-direction: column; }
+    .target-cards { grid-template-columns: 1fr; }
+    header .top-row { flex-direction: column; }
+  }
+
+  /* TOOLTIP */
+  [data-tooltip] {
+    position: relative;
+  }
+  [data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    white-space: nowrap;
+    z-index: 300;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="top-row">
+    <div>
+      <h1>🐋 Broker Expo NYC 2026</h1>
+      <div class="subtitle">Sponsor Outreach Tracker — Dual-Track: Flash Rev + OrcaRouter</div>
+    </div>
+    <div class="event-badge">
+      <span class="dot"></span> Sept 15–16, 2026 · Center 415, NYC
+    </div>
+  </div>
+</header>
+
+<div class="stats-bar" id="statsBar">
+  <div class="stat-card">
+    <div class="stat-value" id="totalCount">0</div>
+    <div class="stat-label">Total Targets</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value" style="color:var(--orca)" id="orcaCount">0</div>
+    <div class="stat-label">OrcaRouter Angle</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value" style="color:var(--flash)" id="flashCount">0</div>
+    <div class="stat-label">Flash Rev Angle</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value" style="color:var(--both)" id="bothCount">0</div>
+    <div class="stat-label">Both Products</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value" style="color:var(--priority-high)" id="highCount">0</div>
+    <div class="stat-label">High Priority</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value" style="color:var(--status-sent)" id="contactedCount">0</div>
+    <div class="stat-label">Contacted</div>
+  </div>
+</div>
+
+<div class="filters">
+  <span class="label">Product:</span>
+  <span class="filter-pill product-orca active" data-filter="product" data-value="orca">🐋 OrcaRouter</span>
+  <span class="filter-pill product-flash active" data-filter="product" data-value="flash">⚡ Flash Rev</span>
+  <span class="filter-pill product-both active" data-filter="product" data-value="both">🔄 Both</span>
+  <span style="margin-left:16px" class="label">Priority:</span>
+  <span class="filter-pill active" data-filter="priority" data-value="high">🔴 High</span>
+  <span class="filter-pill active" data-filter="priority" data-value="med">🟡 Medium</span>
+  <span class="filter-pill active" data-filter="priority" data-value="low">⚪ Low</span>
+  <span style="margin-left:16px" class="label">Status:</span>
+  <span class="filter-pill active" data-filter="status" data-value="pending">Pending</span>
+  <span class="filter-pill active" data-filter="status" data-value="sent">Sent</span>
+  <span class="filter-pill active" data-filter="status" data-value="replied">Replied</span>
+  <span class="filter-pill active" data-filter="status" data-value="meeting">Meeting Set</span>
+  <span class="filter-pill active" data-filter="status" data-value="closed">Closed/Won</span>
+  <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search companies...">
+</div>
+
+<div class="key-section">
+  <h2>🎯 Priority Targets — Click to Open Outreach Playbook</h2>
+  <div class="target-cards" id="targetCards"></div>
+</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Company</th>
+        <th>Product</th>
+        <th>Priority</th>
+        <th>Status</th>
+        <th>Outreach Angle</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+  <div class="empty-state" id="emptyState" style="display:none">
+    <div class="empty-icon">🔍</div>
+    <p>No sponsors match your filters.</p>
+  </div>
+</div>
+
+<!-- ANGLE MODAL -->
+<div class="modal-overlay" id="angleModal">
+  <div class="modal" id="angleModalContent"></div>
+</div>
+
+<!-- NOTES MODAL -->
+<div class="modal-overlay" id="notesModal">
+  <div class="modal">
+    <h3>📝 Notes for <span id="notesCompanyName"></span></h3>
+    <textarea id="notesTextarea" placeholder="Add outreach notes, conversation details, follow-up reminders..."></textarea>
+    <button class="save-note-btn" onclick="saveNotes()">Save Notes</button>
+    <button class="close-btn" onclick="closeNotesModal()">Close</button>
+  </div>
+</div>
+
+<script>
+// --- DATA ---
+const sponsors = [
+  {
+    id: 'dragin',
+    name: 'Dragin Technologies',
+    desc: 'AI underwriting, deal automation, AI Merchant Integrity Dashboard, Zeus AI, OCR, web scraping — the most AI-forward MCA vendor.',
+    product: 'orca',
+    priority: 'high',
+    status: 'pending',
+    notes: '',
+    angle: 'Multiple AI workloads under one roof. Dragin runs OCR, web scraping, underwriting AI, merchant reports, and scorecards — likely calling different models for each. OrcaRouter routes all of it through one endpoint at provider cost.',
+    pitch: `"Hey Mark — we're sponsoring Broker Expo too. Been following Dragin's AI moves — the Merchant Integrity Dashboard and Zeus are impressive.
+
+Quick question: as you're running OCR, web scraping, underwriting AI, and scorecard models — are you calling different LLM providers for different pieces? Because we built something that makes that simpler.
+
+OrcaRouter routes your AI calls through one OpenAI-compatible endpoint, auto-picks the best model per task, fails over mid-stream if a provider goes down, and costs nothing extra — you pay provider rates. For a platform doing multiple AI workloads, that usually means 20-40% savings and zero integration headaches when you add new models.
+
+Happy to grab 10 minutes at the expo to show you how it'd layer under Dragin's AI stack. See you in NYC?"`,
+    context: 'Met last year but never captured his attention. He knows who we are. His July 2026 interview confirms they\'re going deeper into AI ("coming after the underwriters").',
+  },
+  {
+    id: 'ocrolus',
+    name: 'Ocrolus',
+    desc: 'AI document processing & underwriting. 99%+ accuracy on financial docs. Powers PayPal, SoFi, Square, Zillow.',
+    product: 'orca',
+    priority: 'high',
+    status: 'pending',
+    notes: '',
+    angle: 'Huge AI pipeline processing thousands of docs/day. Multiple AI models for classification, extraction, fraud detection. OrcaRouter saves them 20-40% on AI spend with smart routing.',
+    pitch: `"Hey team — we're sponsoring Broker Expo alongside you. Ocrolus runs one of the most sophisticated AI document processing pipelines in fintech. Across classification, extraction, income calc, and fraud detection — are you routing those workloads through different models?
+
+OrcaRouter could slash your AI inference spend 20-40% and give you automatic failover if a provider goes down. One endpoint, every model, zero markup. Worth a conversation at the expo?"`,
+    context: 'Enterprise-scale AI platform. The cost savings angle is the play — even 10% savings on their AI spend is significant.',
+  },
+  {
+    id: 'cloudsquare',
+    name: 'Cloudsquare',
+    desc: 'Salesforce-native MCA CRM & lending platform. IntelliParse AI, AI-powered origination, lender matching.',
+    product: 'orca',
+    priority: 'high',
+    status: 'pending',
+    notes: '',
+    angle: 'Salesforce-native AI features growing fast. IntelliParse, AI origination, intelligent matching. Multi-model AI routing through OrcaRouter keeps their stack provider-agnostic.',
+    pitch: `"Hey — we're sponsoring Broker Expo as well. Cloudsquare's IntelliParse and AI origination features are exactly where the industry is heading. As those AI workloads scale, are you locked into a single provider?
+
+OrcaRouter gives you one OpenAI-compatible endpoint that routes to the best model per task — so your AI features stay provider-agnostic, with automatic failover and cost optimization. Would love to show you at the expo."`,
+    context: 'Salesforce ecosystem means they value plug-and-play integrations. OrcaRouter is exactly that for AI.',
+  },
+  {
+    id: 'hyperverge',
+    name: 'Hyperverge',
+    desc: 'AI identity verification, document fraud detection, KYC/KYB automation.',
+    product: 'orca',
+    priority: 'med',
+    status: 'pending',
+    notes: '',
+    angle: 'AI-driven identity & fraud detection. Multiple AI models likely in play. Smart routing = reliability + cost savings.',
+    pitch: `"Hey — fellow Broker Expo sponsor here. Hyperverge's AI identity verification platform is critical infrastructure. If you're running multiple AI models for fraud detection, document verification, and KYC — OrcaRouter could optimize how those calls are routed.
+
+One endpoint, every model, automatic failover in <50ms, zero markup. Worth a quick chat at the expo?"`,
+    context: '',
+  },
+  {
+    id: 'moneythumb',
+    name: 'MoneyThumb',
+    desc: 'Bank statement conversion, transaction analysis, financial data extraction.',
+    product: 'orca',
+    priority: 'med',
+    status: 'pending',
+    notes: '',
+    angle: 'Bank statement analysis at scale. As they add AI features, multi-model routing becomes essential. OrcaRouter future-proofs their AI stack.',
+    pitch: `"Hey — sponsoring Broker Expo alongside you. As MoneyThumb expands AI-powered statement analysis, are you thinking about multi-provider AI routing?
+
+OrcaRouter lets you call any model through one endpoint, auto-failover if a provider goes down, and you pay provider cost — we take zero markup. Quick chat at the expo?"`,
+    context: '',
+  },
+  {
+    id: 'onyxiq',
+    name: 'Onyx IQ',
+    desc: 'Full-cycle MCA platform — origination, underwriting, funding, servicing, syndication. SOC 2 Type II.',
+    product: 'orca',
+    priority: 'med',
+    status: 'pending',
+    notes: '',
+    angle: 'Full-cycle platform integrating with Plaid, Experian, MoneyThumb. As AI features come online, multi-model routing keeps it future-proof.',
+    pitch: `"Hey — fellow sponsor here. Onyx IQ's full-cycle platform is impressive. As you layer in AI features across origination and underwriting, multi-model routing through OrcaRouter could keep your stack flexible and cost-optimized.
+
+One endpoint, every model, zero markup. Worth a conversation at the expo?"`,
+    context: '',
+  },
+  {
+    id: 'vader',
+    name: 'Vader / Fundworks',
+    desc: 'MCA funding platforms — deal flow, broker management, funding operations.',
+    product: 'both',
+    priority: 'high',
+    status: 'pending',
+    notes: '',
+    angle: 'Dual play: (1) Their broker-facing platform needs reliable AI integration — OrcaRouter. (2) Their sales team sends SMS to brokers — Flash Rev for deliverability.',
+    pitch: `Dual-track approach:
+    
+ORCAROUTER: "Your platform is processing deals at scale. If you're integrating AI for underwriting or matching, OrcaRouter keeps it provider-agnostic with automatic failover."
+
+FLASH REV: "Your brokers rely on SMS to get deals done. 10-DLC is silently filtering MCA messages — Flash Rev ensures your texts actually land."`,
+    context: 'Two distinct conversations with different stakeholders at the same company.',
+  },
+  {
+    id: 'fundfi',
+    name: 'Fundfi',
+    desc: 'MCA funding technology, broker platform, deal management.',
+    product: 'both',
+    priority: 'med',
+    status: 'pending',
+    notes: '',
+    angle: 'Tech platform + broker audience. OrcaRouter for their AI integration, Flash Rev for their broker SMS needs.',
+    pitch: `Dual approach: OrcaRouter for their platform's AI routing, Flash Rev for their broker outreach deliverability.`,
+    context: '',
+  },
+  {
+    id: 'aimy',
+    name: 'Aimy',
+    desc: 'AI-powered MCA technology platform.',
+    product: 'orca',
+    priority: 'high',
+    status: 'pending',
+    notes: '',
+    angle: 'AI-native MCA platform. If "AI" is in their positioning, they\'re calling models. OrcaRouter is a natural fit.',
+    pitch: `"Hey — fellow Broker Expo sponsor. 'AI-powered MCA platform' — love it. If you're calling multiple AI models, OrcaRouter could slash your inference costs 20-40% and give you automatic failover. One endpoint, every model, zero markup. Worth 10 minutes?"`,
+    context: 'AI-native positioning means they\'re the most receptive audience for OrcaRouter.',
+  },
+  {
+    id: 'agentous',
+    name: 'Agentous',
+    desc: 'New sponsor — AI/automation for MCA (details TBD).',
+    product: 'orca',
+    priority: 'high',
+    status: 'pending',
+    notes: '',
+    angle: 'New entrant, name suggests AI/agent focus. Perfect OrcaRouter target — catch them early before they commit to a single AI provider.',
+    pitch: `"Hey — welcome to the Broker Expo sponsor family! Love the name — sounds like you're building something in the AI agent space. Before you lock into any single AI provider, check out OrcaRouter — one endpoint that routes to every model, auto-failover, zero markup. Would love to connect at the expo."`,
+    context: 'New sponsor — perfect time to establish relationship. Get in early before they build their AI stack.',
+  },
+  {
+    id: 'lendini',
+    name: 'Lendini',
+    desc: 'MCA lending platform & technology.',
+    product: 'both',
+    priority: 'med',
+    status: 'pending',
+    notes: '',
+    angle: 'Platform play (OrcaRouter) + broker SMS outreach (Flash Rev).',
+    pitch: `OrcaRouter for their lending tech, Flash Rev for SMS deliverability to their broker network.`,
+    context: '',
+  },
+  {
+    id: 'granite',
+    name: 'Granite / CFGMS',
+    desc: 'Major MCA funder. Huge broker network, high SMS volume.',
+    product: 'flash',
+    priority: 'high',
+    status: 'pending',
+    notes: '',
+    angle: 'Massive broker network = massive SMS volume. 10-DLC deliverability issues directly impact deal flow. Flash Rev solves the invisible filtering problem.',
+    pitch: `"Hey — sponsoring alongside you at Broker Expo. With CFGMS's broker network, SMS is the lifeblood of deal flow. Are you confident those texts are actually landing?
+
+Carriers are quietly filtering MCA messages under 10-DLC. Flash Rev ensures every text hits the inbox. We'd love to show you the difference at the expo."`,
+    context: 'One of the biggest funders in the space. SMS deliverability = direct revenue impact.',
+  },
+  {
+    id: 'everest',
+    name: 'Everest Business Funding',
+    desc: 'Major MCA funder. CEO Scott Crockett is a featured speaker.',
+    product: 'flash',
+    priority: 'high',
+    status: 'pending',
+    notes: '',
+    angle: 'Featured speaker, industry leader. SMS outreach to brokers and merchants is critical. Flash Rev ensures deliverability.',
+    pitch: `"Scott — honored to sponsor alongside Everest. With the scale of your broker and merchant outreach, SMS deliverability is everything. 10-DLC filtering is silently killing MCA messages. Flash Rev fixes it. 5 minutes at the expo?"`,
+    context: 'CEO is speaking — high visibility. Approach through the event context.',
+  },
+  {
+    id: 'dedicated',
+    name: 'Dedicated',
+    desc: 'MCA technology & services platform.',
+    product: 'both',
+    priority: 'low',
+    status: 'pending',
+    notes: '',
+    angle: 'Platform tech (OrcaRouter) + broker services (Flash Rev).',
+    pitch: `Dual approach — OrcaRouter for their tech stack, Flash Rev for broker SMS needs.`,
+    context: '',
+  },
+  {
+    id: 'actum',
+    name: 'Actum',
+    desc: 'MCA payments & processing technology.',
+    product: 'both',
+    priority: 'low',
+    status: 'pending',
+    notes: '',
+    angle: 'Payment processing platform — AI for fraud/risk (OrcaRouter) + merchant SMS (Flash Rev).',
+    pitch: `OrcaRouter for AI routing in payment processing, Flash Rev for merchant communication deliverability.`,
+    context: '',
+  },
+  {
+    id: 'vox',
+    name: 'VOX Funding',
+    desc: 'MCA funder with broker network.',
+    product: 'flash',
+    priority: 'med',
+    status: 'pending',
+    notes: '',
+    angle: 'Broker network SMS outreach is their pipeline. Flash Rev ensures those texts land.',
+    pitch: `"Hey — fellow Broker Expo sponsor. Your broker network runs on SMS. 10-DLC filtering is silently killing deliverability. Flash Rev fixes it — would love to show you at the expo."`,
+    context: '',
+  },
+  {
+    id: 'alpine',
+    name: 'Alpine',
+    desc: 'MCA funding & technology.',
+    product: 'flash',
+    priority: 'low',
+    status: 'pending',
+    notes: '',
+    angle: 'Standard MCA funder play — SMS deliverability for broker/merchant outreach.',
+    pitch: `SMS deliverability pitch — Flash Rev ensures broker outreach texts actually land.`,
+    context: '',
+  },
+  {
+    id: 'aspen',
+    name: 'Aspen',
+    desc: 'MCA funding platform.',
+    product: 'flash',
+    priority: 'low',
+    status: 'pending',
+    notes: '',
+    angle: 'Standard Flash Rev SMS deliverability play.',
+    pitch: `Flash Rev for SMS deliverability — standard broker outreach angle.`,
+    context: '',
+  },
+];
+
+// --- STATE ---
+let activeFilters = {
+  product: ['orca', 'flash', 'both'],
+  priority: ['high', 'med', 'low'],
+  status: ['pending', 'sent', 'replied', 'meeting', 'closed'],
+  search: '',
+};
+
+let currentNotesId = null;
+
+// --- INIT ---
+document.addEventListener('DOMContentLoaded', () => {
+  loadState();
+  renderAll();
+  setupFilters();
+});
+
+function loadState() {
+  const saved = localStorage.getItem('brokerExpoTracker');
+  if (saved) {
+    try {
+      const data = JSON.parse(saved);
+      data.sponsors.forEach(s => {
+        const match = sponsors.find(x => x.id === s.id);
+        if (match) { match.status = s.status; match.notes = s.notes; }
+      });
+      if (data.filters) activeFilters = data.filters;
+    } catch(e) {}
+  }
+}
+
+function saveState() {
+  localStorage.setItem('brokerExpoTracker', JSON.stringify({
+    sponsors: sponsors.map(s => ({ id: s.id, status: s.status, notes: s.notes })),
+    filters: activeFilters,
+  }));
+}
+
+// --- FILTERING ---
+function setupFilters() {
+  document.querySelectorAll('.filter-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      const type = pill.dataset.filter;
+      const value = pill.dataset.value;
+      const idx = activeFilters[type].indexOf(value);
+      if (idx === -1) {
+        activeFilters[type].push(value);
+        pill.classList.add('active');
+      } else {
+        activeFilters[type].splice(idx, 1);
+        pill.classList.remove('active');
+      }
+      saveState();
+      renderAll();
+    });
+  });
+
+  document.getElementById('searchInput').addEventListener('input', (e) => {
+    activeFilters.search = e.target.value.toLowerCase();
+    saveState();
+    renderAll();
+  });
+}
+
+function getFilteredSponsors() {
+  return sponsors.filter(s => {
+    if (!activeFilters.product.includes(s.product)) return false;
+    if (!activeFilters.priority.includes(s.priority)) return false;
+    if (!activeFilters.status.includes(s.status)) return false;
+    if (activeFilters.search && !s.name.toLowerCase().includes(activeFilters.search) && !s.desc.toLowerCase().includes(activeFilters.search) && !s.angle.toLowerCase().includes(activeFilters.search)) return false;
+    return true;
+  });
+}
+
+// --- RENDERING ---
+function renderAll() {
+  const filtered = getFilteredSponsors();
+  renderStats(filtered);
+  renderTargetCards(filtered);
+  renderTable(filtered);
+}
+
+function renderStats(filtered) {
+  document.getElementById('totalCount').textContent = sponsors.length;
+  document.getElementById('orcaCount').textContent = sponsors.filter(s => s.product === 'orca').length;
+  document.getElementById('flashCount').textContent = sponsors.filter(s => s.product === 'flash').length;
+  document.getElementById('bothCount').textContent = sponsors.filter(s => s.product === 'both').length;
+  document.getElementById('highCount').textContent = sponsors.filter(s => s.priority === 'high').length;
+  document.getElementById('contactedCount').textContent = sponsors.filter(s => s.status !== 'pending').length;
+}
+
+function renderTargetCards(filtered) {
+  const container = document.getElementById('targetCards');
+  const highPrio = filtered.filter(s => s.priority === 'high');
+  
+  if (highPrio.length === 0) {
+    container.innerHTML = '<div class="empty-state"><p>No priority targets match your filters.</p></div>';
+    return;
+  }
+
+  container.innerHTML = highPrio.map(s => `
+    <div class="target-card priority-${s.priority}" onclick="openAngleModal('${s.id}')">
+      <div class="tc-header">
+        <span class="tc-name">${s.name}</span>
+        <span class="product-badge ${s.product === 'orca' ? 'orca' : s.product === 'flash' ? 'flash' : 'both'}">${s.product === 'orca' ? 'OrcaRouter' : s.product === 'flash' ? 'Flash Rev' : 'Both'}</span>
+      </div>
+      <div class="tc-angle">${s.angle}</div>
+      <div class="tc-products">
+        ${s.status !== 'pending' ? `<span style="font-size:10px;color:var(--status-sent);font-weight:600">● ${statusLabel(s.status)}</span>` : ''}
+        ${s.notes ? `<span style="font-size:10px;color:var(--flash);font-weight:600">📝 Has notes</span>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderTable(filtered) {
+  const tbody = document.getElementById('tableBody');
+  const empty = document.getElementById('emptyState');
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+
+  empty.style.display = 'none';
+  tbody.innerHTML = filtered.map(s => `
+    <tr>
+      <td>
+        <div class="company-name">${s.name}</div>
+        <div class="company-desc">${s.desc}</div>
+      </td>
+      <td><span class="product-badge ${s.product === 'orca' ? 'orca' : s.product === 'flash' ? 'flash' : 'both'}">${s.product === 'orca' ? 'OrcaRouter' : s.product === 'flash' ? 'Flash Rev' : 'Both'}</span></td>
+      <td>
+        <span class="priority-dot ${s.priority}"></span>
+        <span class="priority-label">${s.priority === 'high' ? 'High' : s.priority === 'med' ? 'Medium' : 'Low'}</span>
+      </td>
+      <td>
+        <select class="status-select" onchange="updateStatus('${s.id}', this.value)">
+          <option value="pending" ${s.status==='pending'?'selected':''}>○ Pending</option>
+          <option value="sent" ${s.status==='sent'?'selected':''}>● Sent</option>
+          <option value="replied" ${s.status==='replied'?'selected':''}>◆ Replied</option>
+          <option value="meeting" ${s.status==='meeting'?'selected':''}>▶ Meeting Set</option>
+          <option value="closed" ${s.status==='closed'?'selected':''}>✓ Closed/Won</option>
+        </select>
+      </td>
+      <td>
+        <span class="angle-trigger" onclick="openAngleModal('${s.id}')">${s.angle.substring(0, 70)}...</span>
+      </td>
+      <td>
+        <button class="notes-btn ${s.notes ? 'has-note' : ''}" onclick="openNotesModal('${s.id}')">${s.notes ? '📝 Edit' : '+ Add'}</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function statusLabel(status) {
+  const map = { pending: 'Pending', sent: 'Sent', replied: 'Replied', meeting: 'Meeting Set', closed: 'Closed' };
+  return map[status] || status;
+}
+
+// --- STATUS UPDATE ---
+function updateStatus(id, newStatus) {
+  const s = sponsors.find(x => x.id === id);
+  if (s) { s.status = newStatus; saveState(); renderAll(); }
+}
+
+// --- ANGLE MODAL ---
+function openAngleModal(id) {
+  const s = sponsors.find(x => x.id === id);
+  if (!s) return;
+
+  const modal = document.getElementById('angleModal');
+  const content = document.getElementById('angleModalContent');
+
+  content.innerHTML = `
+    <h3>${s.name} — ${s.product === 'orca' ? '🐋 OrcaRouter' : s.product === 'flash' ? '⚡ Flash Rev' : '🔄 Both Products'}</h3>
+    <p>${s.desc}</p>
+    ${s.context ? `<div class="detail"><strong>Context:</strong> ${s.context}</div>` : ''}
+    <div class="detail"><strong>Angle:</strong> ${s.angle}</div>
+    <div class="detail"><strong>Outreach Copy:</strong></div>
+    <div class="copy-block">
+      <button class="copy-btn" onclick="copyToClipboard('${s.id}_pitch')">Copy</button>
+      <span id="${s.id}_pitch">${s.pitch}</span>
+    </div>
+    <button class="close-btn" onclick="closeAngleModal()">Close</button>
+  `;
+
+  modal.classList.add('show');
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeAngleModal(); });
+}
+
+function closeAngleModal() {
+  document.getElementById('angleModal').classList.remove('show');
+}
+
+// --- NOTES MODAL ---
+function openNotesModal(id) {
+  const s = sponsors.find(x => x.id === id);
+  if (!s) return;
+
+  currentNotesId = id;
+  document.getElementById('notesCompanyName').textContent = s.name;
+  document.getElementById('notesTextarea').value = s.notes || '';
+  document.getElementById('notesModal').classList.add('show');
+
+  document.getElementById('notesModal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('notesModal')) closeNotesModal();
+  });
+}
+
+function saveNotes() {
+  if (!currentNotesId) return;
+  const s = sponsors.find(x => x.id === currentNotesId);
+  if (s) {
+    s.notes = document.getElementById('notesTextarea').value;
+    saveState();
+    renderAll();
+  }
+  closeNotesModal();
+}
+
+function closeNotesModal() {
+  document.getElementById('notesModal').classList.remove('show');
+  currentNotesId = null;
+}
+
+// --- UTILS ---
+function copyToClipboard(elementId) {
+  const el = document.getElementById(elementId);
+  const text = el.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = el.parentElement.querySelector('.copy-btn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+  });
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeAngleModal();
+    closeNotesModal();
+  }
+});
+</script>
+</body>
+</html>
