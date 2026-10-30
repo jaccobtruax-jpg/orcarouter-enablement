@@ -31,7 +31,7 @@ OrcaRouter is funded by subscriptions and committed minimums, never by a margin 
 ## The tiers
 
 - **Free tier**: acquisition. Rotating popular models, full catalogue, single user.
-- **Team**: live pricing page shows about $49/mo for up to 10 seats (compliance, priority support). NOTE: internal sales repos referenced $499/mo; the live page is authoritative. Re-verify against orcarouter.ai/pricing before quoting a number.
+- **Team**: $499/mo on the live pricing page (re-verified 2026-10-30) for up to 10 seats (compliance enforcement, unlimited API keys, priority support). NOTE: earlier internal notes referenced ~$49/mo; the live page is authoritative. Re-verify against orcarouter.ai/pricing before quoting a number.
 - **Enterprise / SLG**: volume-based, custom. This is where most deals land.
 
 ## SLG deal structure: the commit is a FLOOR, never a fee
@@ -55,7 +55,7 @@ Commercial logic from OrcaRouter's side: a guaranteed revenue floor per deal (a 
 
 ## BYOK
 
-Customers can attach their own keys (OpenAI, Anthropic, Google, Azure). Negotiated rates, commitments, and data terms are unchanged; committed spend still draws down. 0% BYOK fees. For BYOK fee specifics, reference **orcarouter.ai/pricing**; never recite terms from memory.
+Customers can attach their own keys (OpenAI, Anthropic, Google, Azure). Negotiated rates, commitments, and data terms are unchanged; committed spend still draws down. BYOK traffic may carry a platform fee (docs default ~5%, configurable); quote the pricing page, never recite. For BYOK fee specifics, reference **orcarouter.ai/pricing**; never recite terms from memory.
 
 ## Pilot motion: how the deal de-risks before the commit
 
@@ -82,16 +82,16 @@ Prompt caching is priced per provider and per key. A gateway that load-balances 
 
 | Figure | Status |
 |---|---|
-| $49/mo Team tier, 10 seats | Live pricing page (authoritative) |
-| $499/mo | Internal repos only; likely pre-launch/enterprise; do not quote without checking the page |
+| $499/mo Team tier, 10 seats | Live pricing page (authoritative, re-verified 2026-10-30) |
+| ~$49/mo Team tier | Stale internal note; live page shows $499/mo, do not quote |
 | $25 signup credit | Does not exist on the live site; do not promise |
-| $0 markup, 0% BYOK fees | Structural, live page confirms |
+| $0 markup on tokens (Free/Team); BYOK may carry a platform fee | Live page; quote it |
 | $10M annualized run-rate (Aug 2026) | PR context; category signal, not a deal stat |
 
 ## Common pitfalls
 
 1. Describing the SLG commit as a fee. It is a floor on spend. One slip breaks the savings math and the trust.
-2. Quoting $499/mo to a prospect. The live Team tier is ~$49/mo; verify before speaking.
+2. Quoting ~$49/mo to a prospect. The live Team tier is $499/mo; verify before speaking.
 3. Promising a $25 credit. It does not exist.
 4. Discounting. There is nothing to discount; "you do not discount $0."
 5. Letting "zero markup" sound promotional. It is structural: "the $0 is the point, not a launch promotion."
