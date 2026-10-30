@@ -178,6 +178,15 @@
             .hero h1 { font-size: 32px; }
             .container { padding: 24px 16px 60px; }
         }
+    
+        /* PATCH NOTES (always visible, not nav-toggled) */
+        #patch-notes { margin: 24px 0 8px; padding: 18px 20px; border: 1px solid var(--muted); border-left: 4px solid var(--text); background: var(--bg); border-radius: 8px; }
+        #patch-notes h2 { font-size: 20px; margin: 0 0 6px; }
+        #patch-notes > p { font-size: 13px; color: var(--muted); margin: 0 0 12px; }
+        .patchnote { margin-top: 10px; }
+        .pn-date { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 2px; }
+        .pn-body { font-size: 14px; line-height: 1.5; }
+
     </style>
 </head>
 <body>
@@ -207,7 +216,7 @@
         </div>
 
         <!-- PATCH NOTES -->
-<div id="patch-notes" class="section">
+<div id="patch-notes" class="patchbox">
   <h2>Patch Notes</h2>
   <p>What changed and when. Pull the latest skill files from orcacyber-outreach-skill before each new batch; your local copy drifts.</p>
   <div class="patchnote">
