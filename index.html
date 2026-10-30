@@ -187,17 +187,41 @@
         .pn-date { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 2px; }
         .pn-body { font-size: 14px; line-height: 1.5; }
 
+    
+        /* SUBNAV */
+        .subnav { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--muted); }
+        .subnav a { padding: 6px 14px; border: 1px solid var(--muted); border-radius: 20px; font-size: 13px; color: var(--text); text-decoration: none; }
+        .subnav a.active { background: var(--text); color: #fff; border-color: var(--text); }
+        /* LEADS */
+        .leads-head h2 { margin-bottom: 4px; }
+        .leads-head p { font-size: 13px; color: var(--muted); margin-top: 0; }
+        .leads-controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 14px 0; }
+        .leads-controls label { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+        .leads-controls select, .leads-controls input { padding: 6px 8px; border: 1px solid var(--muted); border-radius: 6px; font-size: 13px; background: var(--bg); color: var(--text); }
+        .leads-controls .btn { padding: 7px 14px; background: var(--text); color: #fff; border: 0; border-radius: 6px; font-size: 13px; cursor: pointer; }
+        .lead-summary { font-size: 13px; margin: 8px 0; padding: 10px 14px; border: 1px solid var(--muted); border-radius: 8px; background: var(--bg); }
+        .leads-scroll { overflow-x: auto; max-height: 62vh; overflow-y: auto; border: 1px solid var(--muted); border-radius: 8px; }
+        .lead-table { border-collapse: collapse; width: 100%; font-size: 12px; }
+        .lead-table th { position: sticky; top: 0; background: var(--text); color: #fff; text-align: left; padding: 8px; z-index: 2; }
+        .lead-table td { padding: 6px 8px; border-top: 1px solid var(--muted); vertical-align: top; }
+        .lead-table select, .lead-table input[type=text] { padding: 4px 6px; border: 1px solid var(--muted); border-radius: 4px; font-size: 12px; background: var(--bg); color: var(--text); max-width: 130px; }
+        .lead-table input.why { width: 170px; }
+        .lead-table .copybtn { padding: 4px 8px; border: 1px solid var(--muted); border-radius: 4px; font-size: 11px; background: var(--bg); cursor: pointer; }
+        .lead-table tr.saved td { background: rgba(0,128,0,0.06); }
+        .tag { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+        .tag-red { background: #fde8e8; color: #b91c1c; }
+        .tag-blue { background: #e8eefd; color: #1d4ed8; }
+        .tag-gray { background: #f3f4f6; color: #4b5563; }
+        .tag-drop { background: #fef3c7; color: #92400e; }
+        .tag-junk { background: #e5e7eb; color: #374151; }
+
     </style>
 </head>
 <body>
     <nav class="nav">
         <div class="nav-brand">OrcaRouter</div>
-        <a href="#" onclick="showSection('grader')" class="active" id="nav-grader">Message Grader</a>
-        <a href="#" onclick="showSection('playbook')" id="nav-playbook">Playbook</a>
-        <a href="#" onclick="showSection('outreach')" id="nav-outreach">Outreach Playbook</a>
-        <a href="#" onclick="showSection('cheatsheet')" id="nav-cheatsheet">Fluff-to-Fact</a>
-        <a href="#" onclick="showSection('team')" id="nav-team">Rep Messaging</a>
-        <a href="#" onclick="showSection('coaching')" id="nav-coaching">Coaching</a>
+        <a href="#" onclick="showSection('enablement')" class="active" id="nav-enablement">Enablement &amp; Coaching</a>
+        <a href="#" onclick="showSection('leads')" id="nav-leads">Rep Leads</a>
     </nav>
 
     <div class="container">
@@ -224,6 +248,17 @@
     <div class="pn-body"><b>Alignment + fact pass.</b> Team plan is <b>$499/mo</b> on the live page, not $49 (KBs and older assets corrected). BYOK traffic may carry a platform fee; quote the pricing page. Cyber prices are public on model pages ($3.00/$7.50 for Zero 1.5); benchmarks stay vendor-reported, phrase as "our reported numbers, not an independent audit." Removed: "genuinely unrestricted" phrasing, "$50 trial" promises, the unverified MSSP testimonial. Cost math corrected to ~1/8 of Mythos. New in orcacyber-outreach-skill: per-rep mission briefs (<code>reps/</code>) and the <code>grade-orca-message</code> skill (<code>skills/</code>). 154 leads are in HubSpot tagged Orca Tier / Orca Play / Account Owner; your final CSV and briefing pack are in <code>leads/</code>.</div>
   </div>
 </div>
+
+<!-- ENABLEMENT WRAPPER (consolidated) -->
+<div id="enablement" class="section active">
+  <div class="subnav">
+    <a href="#" onclick="showSection('grader')" class="active" id="nav-sub-grader">Message Grader</a>
+    <a href="#" onclick="showSection('playbook')" id="nav-sub-playbook">Playbook</a>
+    <a href="#" onclick="showSection('outreach')" id="nav-sub-outreach">Outreach Playbook</a>
+    <a href="#" onclick="showSection('cheatsheet')" id="nav-sub-cheatsheet">Fluff-to-Fact</a>
+    <a href="#" onclick="showSection('team')" id="nav-sub-team">Rep Messaging</a>
+    <a href="#" onclick="showSection('coaching')" id="nav-sub-coaching">Coaching</a>
+  </div>
 
 <!-- GRADER SECTION -->
         <div id="grader" class="section active">
@@ -517,7 +552,164 @@ We built OrcaCyber Zero 1.5 for red teams. It reproduces CVEs and validates expl
 Want a workspace this week?</div></div>
 </div></div>
 <div class="rep-card"><div class="rep-head"><span class="avatar">N</span><div><div class="name">Niha</div><span class="rep-status">1/3 · Needs 2 more</span></div></div><div class="coach-feedback">
-<div class="example"><div class="fmt">What works</div><div class="msg">The strongest single opener on the board. You followed up on a real prior conversation, named the actual challenge (validation vs discovery), positioned honestly ("not an autonomous pentest agent"), and ended with a genuine question for a peer. That is exactly the trigger-based bar.</div></div>
+<div class="example"><div class="fmt">What works</div><div class="msg">The strongest single opener on the board. You followed up on a real prior conversation, named the actual challenge (validation vs discovery), positioned honestly ("not an autonomous pentest agent"), and ended with a genuine question for a peer. That is <script>
+
+function showSection(id) {
+    var topLevel = (id === 'enablement' || id === 'leads');
+    document.querySelectorAll('.section').forEach(function(s){ s.classList.remove('active'); });
+    document.querySelectorAll('.nav a').forEach(function(a){ a.classList.remove('active'); });
+    if (topLevel) {
+        document.getElementById(id).classList.add('active');
+        document.getElementById('nav-' + id).classList.add('active');
+        if (id === 'leads') { if (window.__leadsRendered !== true) { renderLeads(); window.__leadsRendered = true; } }
+        else { showSub('grader', true); }
+    } else {
+        document.getElementById('enablement').classList.add('active');
+        document.getElementById('nav-enablement').classList.add('active');
+        showSub(id, false);
+    }
+    window.scrollTo(0, 0);
+}
+function showSub(id, fromTop) {
+    var subs = document.querySelectorAll('#enablement > .section');
+    subs.forEach(function(s){ s.classList.remove('active'); });
+    var el = document.getElementById(id);
+    if (el) el.classList.add('active');
+    document.querySelectorAll('.subnav a').forEach(function(a){ a.classList.remove('active'); });
+    var nav = document.getElementById('nav-sub-' + id);
+    if (nav) nav.classList.add('active');
+}
+var LEADS = [[0, "Niha", "Manohar", "Rangapuram", "AI Engineer", "Digitech Services Inc", "DROP", "Park (gateway)", "manohar.rangapuram@digitechserve.com", "2026-10-30"], [1, "Niha", "Aivaras", "Jagutis", "AI Engineer (backend)", "Copla", "DROP", "Park (gateway)", "aivaras.jagutis@copla.com", "2026-10-30"], [2, "Niha", "Nikhil", "Joshi", "AI Security Research Engineer", "Straiker", "RED", "P1 / P2", "nikhil@straiker.ai", "2026-10-30"], [3, "Niha", "Rohan", "Kumar", "Cyber Security Engineer", "Ciqur24 LLP", "BLUE", "P2 / P5", "rohan@ciqur24.com", "2026-10-30"], [4, "Niha", "Siraj", "Khan", "AI Engineer", "xFlow Research Inc.", "JUNK", "Skip", "siraj.khan@xflowresearch.com", "2026-10-30"], [5, "Niha", "Rayees", "", "Associate AI Engineer", "Gravity Engineering Services", "BLUE", "P2 / P5", "rayees@gravityer.com", "2026-10-30"], [6, "Niha", "Exander", "Turnbull", "Senior Cyber Security Engineer", "Alecto", "BLUE", "P2 / P5", "exander.turnbull@alectonetworks.com", "2026-10-30"], [7, "Niha", "Connie", "Harrington", "AI Safety | Red Team Specialist", "July AI", "RED", "P1 / P2", "connie@gojuly.ai", "2026-10-30"], [8, "Niha", "James", "Hering", "Cyber Security Engineer | Computer Science", "Simvay", "BLUE", "P2 / P5", "jhering@simvay.com", "2026-10-30"], [9, "Niha", "Navin", "Chanchal", "AI Engineer", "TechSnitch", "DROP", "Park (gateway)", "navin.chanchal@techsnitch.co", "2026-10-30"], [10, "Niha", "Mitch", "Corbett", "Senior Cyber Security Engineer", "AZ Cyber Security Solutions, Inc.", "BLUE", "P2 / P5", "mitch.corbett@azcybersecurity.com", "2026-10-30"], [11, "Niha", "Syed", "Ali", "Cyber Security Engineer III / CNE Specialist", "MAXISIQ", "BLUE", "P2 / P5", "syed.ali@maxisiq.com", "2026-10-30"], [12, "Niha", "Imaduddin", "Mohammed", "AI & Automation Engineer", "Exordium Networks Inc.", "BLUE", "P2 / P5", "imaduddin@exordiumnetworks.com", "2026-10-30"], [13, "Niha", "Emaan", "Zafar", "Generative AI Engineer", "Verticiti", "DROP", "Park (gateway)", "emaan.zafar@verticiti.com", "2026-10-30"], [14, "Niha", "Sasidhar", "Bogem", "Security Consultant", "Saint Fox", "BLUE", "P2 / P5", "sasidhar.bogem@stfox.com", "2026-10-30"], [15, "Niha", "Maryam", "Syed", "Agentic AI Engineer", "Zyne Ventures", "DROP", "Park (gateway)", "maryam.syed@zyneventures.com", "2026-10-30"], [16, "Niha", "Justin", "Nelson", "AI/ML Research Engineer", "Intelligent Automation, a BlueHalo Company", "GRAY", "Tailored", "jnelson@i-a-i.com", "2026-10-30"], [17, "Niha", "William", "Hager", "Junior Data and AI Engineer", "Nfinity Global Inc.", "JUNK", "Skip", "whager@nfinity-global.com", "2026-10-30"], [18, "Niha", "Dorrel", "Schwartz", "Cyber Security Engineer", "SHEIN Technology LLC", "BLUE", "P2 / P5", "dorrel.schwartz@sheingroup.com", "2026-10-30"], [19, "Niha", "Sana", "Na", "AI & Automation Engineer", "Exordium Networks Inc.", "BLUE", "P2 / P5", "sana@exordiumnetworks.com", "2026-10-30"], [20, "Niha", "Goran", "K", "Cyber Security Engineer", "SKY EXPRESS IT Security Company", "BLUE", "P2 / P5", "goran.k@sky-express.rs", "2026-10-30"], [21, "Niha", "Kruthika", "M", "AI Security Engineer", "American Scientific Technical Solutions Llc", "JUNK", "Skip", "kruthika.m@astsolutionsllc.com", "2026-10-30"], [22, "Niha", "Tal", "Oliel", "Senior Cyber Security Engineer & DFIR", "CYCL (Powered by Bugsec)", "BLUE", "P2 / P5", "talo@bugsec.com", "2026-10-30"], [23, "Niha", "Ahmad", "Mwalla", "Cyber Security Engineer", "Satius Security", "BLUE", "P2 / P5", "a.mwalla@satius.io", "2026-10-30"], [24, "Niha", "Jake", "Baker", "Customer Engineer, Americas", "Pillar Security", "RED", "P1 / P2", "jake@pillar.security", "2026-10-30"], [25, "Niha", "Vamshi", "Krishna", "Senior Cyber Security Engineer", "Saint Fox", "BLUE", "P2 / P5", "vamshi@st-fox.com", "2026-10-30"], [26, "Niha", "Hemant", "Rai", "AI Security Solutions Engineer", "Straiker", "RED", "P1 / P2", "hemantrai@straiker.ai", "2026-10-30"], [27, "Niha", "Mohammad", "Tahoun", "Sr.Cyber Security Analyst | Detection Engineer Specialist", "Satius Security", "BLUE", "P2 / P5", "m.tahoun@satius.io", "2026-10-30"], [28, "Niha", "Sabrina", "Shahzad", "Agentic AI Engineer", "Zyne Ventures", "DROP", "Park (gateway)", "sabrina.shahzad@zyneventures.com", "2026-10-30"], [29, "Niha", "Trey", "Hoffman", "AI Software Engineer", "Wraithwatch", "DROP", "Park (gateway)", "thoffman@wraithwatch.com", "2026-10-30"], [30, "Niha", "Parveen", "Dagar", "Cyber Security Engineer", "eduVyne", "JUNK", "Skip", "parveen.dagar@eduvyne.com", "2026-10-30"], [31, "Niha", "Doris", "Echianu", "AI Engineer", "CapacityBay inc", "JUNK", "Skip", "echianu@capacitybay.org", "2026-10-30"], [32, "Niha", "Akshay", "Gupta", "AI Engineer", "CyberSmithSECURE", "DROP", "Park (gateway)", "akshay.gupta@cybersmithsecure.com", "2026-10-30"], [33, "Niha", "Karthik", "Gaddi", "AI/ML Engineer", "VAILEXA", "JUNK", "Skip", "karthik.g@vailexa.com", "2026-10-30"], [34, "Niha", "Arya", "Singh", "Artificial Intelligence Engineer", "Gravity Engineering Services", "BLUE", "P2 / P5", "", "2026-10-30"], [35, "Niha", "Fayis", "Moonnakkal", "Cyber Security Engineer-l1", "Saint Fox", "BLUE", "P2 / P5", "", "2026-10-30"], [36, "Niha", "Jesus", "Carro Gutierrez", "Contractor AI Red Team", "Straiker", "RED", "P1 / P2", "jesus@straiker.ai", "2026-10-30"], [37, "Niha", "Suchithra", "Moddu", "AI Engineer", "NEUZEN AI", "DROP", "Park (gateway)", "suchithra@neuzenai.com", "2026-10-30"], [38, "Niha", "David", "Probinsky", "Red Team Operator & Trainer", "Red Team", "RED", "P1 / P2", "david@redteam.vip", "2026-10-30"], [39, "Niha", "Petra", "Ivanovic", "AI Engineer", "Trustwise", "DROP", "Park (gateway)", "petra@trustwise.ai", "2026-10-30"], [40, "Niha", "Selena", "Urosevic", "Cyber Security Engineer", "SKY EXPRESS IT Security Company", "BLUE", "P2 / P5", "selena.urosevic@sky-express.rs", "2026-10-30"], [41, "Niha", "Hassan", "Jalil", "AI Engineer", "xFlow Research Inc.", "JUNK", "Skip", "hassan.jalil@xflowresearch.com", "2026-10-30"], [42, "Niha", "Palak", "Kushwaha", "Generative AI Engineer", "Kavayah Cybersecurity Pvt. Ltd.", "DROP", "Park (gateway)", "palak.kushwaha@kavayahcloud.com", "2026-10-30"], [43, "Niha", "Hassaan", "Siddiqui", "Operations Manager & Junior Cyber Security Engineer", "Voltic Inc", "BLUE", "P2 / P5", "hassaan.sid@voltic.ai", "2026-10-30"], [44, "Niha", "Miranda", "Kelly", "Cyber Security Engineer", "Special Aerospace Security Services, Inc.", "JUNK", "Skip", "miranda.brooks@teamsassi.com", "2026-10-30"], [45, "Niha", "Zbignev", "Zalevskij", "Chief Information Security Officer", "Copla", "BLUE", "P2 / P5", "zz@cyberupgrade.net", "2026-10-30"], [46, "Niha", "Audra", "Zook", "Red Team Engineer", "Gray Swan", "RED", "P1 / P2", "audra@grayswan.ai", "2026-10-30"], [47, "Niha", "Nadeem", "Ahmed", "Artificial Intelligence Engineer", "Zvolvant Solutions", "BLUE", "P2 / P5", "nadeem.ahmed@zvolvant.com", "2026-10-30"], [48, "Niha", "Michelle", "Meadows", "Cyber Security Engineer/Consultant", "SYNAPP Incorporated", "BLUE", "P2 / P5", "michelle.meadows@synapp.com", "2026-10-30"], [49, "Niha", "Henry", "Houghton", "Team Lead, Red Team", "10a Labs", "RED", "P1 / P2", "henry@10alabs.com", "2026-10-30"], [50, "Niha", "Marwan", "Ayman", "AI Testing Engineer", "Corporatica", "DROP", "Park (gateway)", "marwan.ayman@corporatica.com", "2026-10-30"], [51, "Niha", "Shail", "Shah", "Principal Software Engineer - AI Integration", "Trilogy NextGen", "DROP", "Park (gateway)", "sshah@trilogynextgen.com", "2026-10-30"], [52, "Rayyan", "Kusum", "Basnet", "Senior AI Platform Engineer", "Equagen", "DROP", "Park (gateway)", "kusum.basnet@equagen.com", "2026-10-30"], [53, "Rayyan", "Jean", "Cisse", "Cyber Security Engineer", "SURICATE SOLUTIONS Security & Payments", "BLUE", "P2 / P5", "", "2026-10-30"], [54, "Rayyan", "Veronica", "John", "Senior Cyber Security Engineer", "WereSoft Technologies Consulting", "JUNK", "Skip", "vjohn@weresoftconsulting.com", "2026-10-30"], [55, "Rayyan", "Sajeemthan", "Sriskantharasa", "AI Engineer", "Decryptogen", "JUNK", "Skip", "sajeemthan@decryptogen.com", "2026-10-30"], [56, "Rayyan", "Abdul", "Hammad", "Cyber Security Engineer", "Cyber Security Inc", "BLUE", "P2 / P5", "ahammad@cybersecurityinc.net", "2026-10-30"], [57, "Rayyan", "Muhammad", "Essa", "AI Engineer", "xFlow Research Inc.", "JUNK", "Skip", "muhammad.essa@xflowresearch.com", "2026-10-30"], [58, "Rayyan", "Nihal", "Bhatnagar", "Artificial Intelligence Engineer", "Trustwise", "RED", "P1 / P2", "nihal@trustwise.ai", "2026-10-30"], [59, "Rayyan", "Chidanand", "Kallibaddi", "Cyber Security Engineer", "Ciqur24 LLP", "BLUE", "P2 / P5", "chidanandk@ciqur24.com", "2026-10-30"], [60, "Rayyan", "Aasim", "Dharsi", "AI Solutions Engineer", "DAIS", "BLUE", "P2 / P5", "aasim.dharsi@dais.co", "2026-10-30"], [61, "Rayyan", "Yash", "Tripathi", "AI Security Research Engineer", "Straiker", "RED", "P1 / P2", "yash@straiker.ai", "2026-10-30"], [62, "Rayyan", "Stephen", "Morancie", "Cyber Red Team Analyst", "K2 Group, Inc.", "RED", "P1 / P2", "morancies@k2groupinc.com", "2026-10-30"], [63, "Rayyan", "Jonas", "Satkauskas", "Chief Information Security Officer", "Copla", "BLUE", "P2 / P5", "jonas.satkauskas@copla.com", "2026-10-30"], [64, "Rayyan", "Amber", "Maria", "Cyber Security Engineer", "Intelligent Learning Machines, Inc.", "BLUE", "P2 / P5", "amber@ilmach.com", "2026-10-30"], [65, "Rayyan", "Haider", "Imran", "AI Automation Engineer", "Simplicore", "DROP", "Park (gateway)", "haider.imran@simplicore.com", "2026-10-30"], [66, "Rayyan", "Robert", "Riemenschneider", "Cyber Security Engineer", "MAXISIQ", "BLUE", "P2 / P5", "robert.riemenschneider@maxisiq.com", "2026-10-30"], [67, "Rayyan", "Jazir", "Lourens", "Cyber Threat Management Security Engineer", "IT Solutions N.V", "BLUE", "P2 / P5", "jazir.lourens@itsolutions.cw", "2026-10-30"], [68, "Rayyan", "Naveed", "Dar", "Cyber Security Engineer", "COE Security LLC", "BLUE", "P2 / P5", "naveeddar@coesecurity.com", "2026-10-30"], [69, "Rayyan", "Matthew", "Simpson", "Data & AI Engineer", "Leaf-IT", "JUNK", "Skip", "matthew.simpson@leaf-it.com", "2026-10-30"], [70, "Rayyan", "Eylam", "Levy", "Cyber Security & Detection Engineer | DFIR Team", "CYCL (Powered by Bugsec)", "BLUE", "P2 / P5", "eylaml@bugsec.com", "2026-10-30"], [71, "Rayyan", "Mohan", "Sunkara", "AI Software Engineer", "Trilogy NextGen", "DROP", "Park (gateway)", "msunkara@trilogynextgen.com", "2026-10-30"], [72, "Rayyan", "Chris", "Grover", "Cyber Security Engineer", "NOVO", "BLUE", "P2 / P5", "cgrover@yesnovo.com", "2026-10-30"], [73, "Rayyan", "Robert", "Garrett", "Cyber Security Engineer", "SysNet Technologies, Inc.", "BLUE", "P2 / P5", "robert.garrett@sysnettech.com", "2026-10-30"], [74, "Rayyan", "Azhar", "Din", "AI Engineer", "xFlow Research Inc.", "JUNK", "Skip", "azhar.din@xflowresearch.com", "2026-10-30"], [75, "Rayyan", "Munazah", "Mehdi", "Gen AI Engineer", "Ask-AI", "DROP", "Park (gateway)", "munazah@getmosaic.ai", "2026-10-30"], [76, "Rayyan", "Kameron", "Bettridge", "AI Red Teamer/Arena Engineer", "Gray Swan", "RED", "P1 / P2", "kameron@grayswan.ai", "2026-10-30"], [77, "Rayyan", "Somasunder", "S", "AI Engineer", "Repello AI", "DROP", "Park (gateway)", "somasunder@repello.ai", "2026-10-30"], [78, "Rayyan", "Imtisal", "Hashmi", "Artificial Intelligence Engineer", "Exordium Networks Inc.", "BLUE", "P2 / P5", "imtisal@exordiumnetworks.com", "2026-10-30"], [79, "Rayyan", "Dorian", "Schultz", "Red Team Data Scientist", "SPLX, a Zscaler Company", "RED", "P1 / P2", "dorian@splx.ai", "2026-10-30"], [80, "Rayyan", "James", "Swanigan", "Cyber Security Engineer", "SysNet Technologies, Inc.", "BLUE", "P2 / P5", "james.swanigan@gsa.gov", "2026-10-30"], [81, "Rayyan", "Ramsey", "Bland", "AI Software Engineer", "Wraithwatch", "DROP", "Park (gateway)", "rbland@wraithwatch.com", "2026-10-30"], [82, "Rayyan", "Karpagarajan", "Vikkii", "AI Security Research Engineer", "Straiker", "RED", "P1 / P2", "karpagarajan@straiker.ai", "2026-10-30"], [83, "Rayyan", "Jon", "N", "Cyber Security Engineer", "Imagineeer", "BLUE", "P2 / P5", "jn@imagineeer.ai", "2026-10-30"], [84, "Rayyan", "Kunchala", "Nandini", "AI System Engineer", "Tropoleap", "DROP", "Park (gateway)", "knandini@tropoleap.com", "2026-10-30"], [85, "Rayyan", "Ashwin", "Wariar", "AI/ML Engineer", "MAXISIQ", "DROP", "Park (gateway)", "ashwin.wariar@maxisiq.com", "2026-10-30"], [86, "Rayyan", "Ketu", "Patel", "Software Engineer | AI/ML | Cybersecurity", "MAXISIQ", "DROP", "Park (gateway)", "ketu.patel@maxisiq.com", "2026-10-30"], [87, "Rayyan", "Krrish", "Singh", "Cyber Security Engineer", "COE Security LLC", "BLUE", "P2 / P5", "krrishsingh@coesecurity.com", "2026-10-30"], [88, "Rayyan", "Shabbir", "Merchant", "AI & Automations Engineer", "Exordium Networks Inc.", "BLUE", "P2 / P5", "shabbir@exordiumnetworks.com", "2026-10-30"], [89, "Rayyan", "Ben", "Sender", "AI Red Teamer/Arena Engineer", "Gray Swan", "RED", "P1 / P2", "ben@grayswan.ai", "2026-10-30"], [90, "Rayyan", "Jacob", "Brechbuhl", "AI Software Engineer", "Wraithwatch", "DROP", "Park (gateway)", "jbrechbuhl@wraithwatch.com", "2026-10-30"], [91, "Rayyan", "Jetmir", "Rajta", "Red Team Engineer", "Gray Swan", "RED", "P1 / P2", "jetmir@grayswan.ai", "2026-10-30"], [92, "Rayyan", "Jessica", "Peaden", "AI Implementation Engineer", "Plus 1 Technology", "BLUE", "P2 / P5", "jpeaden@plus1technology.com", "2026-10-30"], [93, "Rayyan", "Mateusz", "Dziemian", "AI Safety Engineer", "Gray Swan", "RED", "P1 / P2", "mateusz@grayswan.ai", "2026-10-30"], [94, "Rayyan", "Joshua", "McConnell", "Cyber Security Engineer", "MAXISIQ", "BLUE", "P2 / P5", "joshua.mcconnell@maxisiq.com", "2026-10-30"], [95, "Rayyan", "Lailoma", "Noor", "AI Engineer", "xFlow Research Inc.", "JUNK", "Skip", "lailoma.noor@xflowresearch.com", "2026-10-30"], [96, "Rayyan", "Anthony", "Wellens", "Sr Principal Cyber Security Engineer", "SYNAPP Incorporated", "BLUE", "P2 / P5", "anthony.wellens@synapp.com", "2026-10-30"], [97, "Rayyan", "Rodney", "Heck", "Chief Information Security Officer", "Paper City Savings Bank", "BLUE", "P2 / P5", "rodheck@papercitysavings.com", "2026-10-30"], [98, "Rayyan", "Sai", "Nagelli", "Embedded Engineer / Associate AI Analyst", "SDLC Technologies", "JUNK", "Skip", "sai@sdlctechnologies.com", "2026-10-30"], [99, "Rayyan", "Vamshi", "Krishna", "AI Automation Engineer", "SDLC Technologies", "JUNK", "Skip", "vamshi@sdlctechnologies.com", "2026-10-30"], [100, "Rayyan", "Antoine", "Juhasz", "Principal AI Security Sales Engineer", "Straiker", "RED", "P1 / P2", "antoine@straiker.ai", "2026-10-30"], [101, "Rayyan", "Divyanshu", "Kumar", "AI Research Engineer", "Enkrypt AI", "RED", "P1 / P2", "divyanshu@enkryptai.com", "2026-10-30"], [102, "Rayyan", "Dan", "Ortillo", "Cyber Security Engineer", "SysNet Technologies, Inc.", "BLUE", "P2 / P5", "dan.ortillo@sysnettech.com", "2026-10-30"], [103, "Rayyan", "Muhammad", "Rebal", "Artificial Intelligence Engineer", "Hubcom Corporation", "BLUE", "P2 / P5", "muhammad.rebal@hubcom.co", "2026-10-30"], [104, "Ifrah", "Rakeshnag", "Dasari", "AI Engineer | Agentic AI | DevSecOps Lead | Sr. SRE | Gen AI | LLM Ops | Forward Deployed Engineer", "VEN SOLUTIONS LLC", "DROP", "Park (gateway)", "rakeshnag@vensolve.com", "2026-10-30"], [105, "Ifrah", "Hiruni", "Dewmini", "Artificial Intelligence Engineer", "Technosys IES Inc., IL USA", "JUNK", "Skip", "hdewmini@analog-inference.com", "2026-10-30"], [106, "Ifrah", "Smith", "Gonsalves", "Director & CISO", "CyberSmithSECURE", "BLUE", "P2 / P5", "smith.gonsalves@cybersmithsecure.com", "2026-10-30"], [107, "Ifrah", "Ammar", "Asghar", "AI Engineer", "Tekglide, Inc", "JUNK", "Skip", "ammar@tekglide.com", "2026-10-30"], [108, "Ifrah", "Ace", "Irinco", "Artificial Intelligence Engineer", "IntegSec", "JUNK", "Skip", "ace.irinco@integsec.com", "2026-10-30"], [109, "Ifrah", "Afifa", "Saad", "Principal AI Engineer | GTM Automation \u00b7 Clinical AI", "Artilence", "JUNK", "Skip", "saad@artilence.com", "2026-10-30"], [110, "Ifrah", "Antonio", "Abello", "IT Engineer (Splunk Engineer) (Cyber Security)", "CapacityBay inc", "JUNK", "Skip", "abello@capacitybay.org", "2026-10-30"], [111, "Ifrah", "Fuh", "", "Red Team Consultant", "Gray Swan", "RED", "P1 / P2", "fuh@grayswan.ai", "2026-10-30"], [112, "Ifrah", "Austin", "Killough", "Chief Operating Officer", "Wider Security", "BLUE", "P2 / P5", "austin.killough@widersecurity.com", "2026-10-30"], [113, "Ifrah", "Yash", "Savalia", "Founding AI Engineer", "Bluejay", "DROP", "Park (gateway)", "yash@getbluejay.ai", "2026-10-30"], [114, "Ifrah", "Dharani", "Chalichama", "Generative AI Engineer", "BN Associates Inc.", "DROP", "Park (gateway)", "dharani.c@bnassociates.net", "2026-10-30"], [115, "Ifrah", "Carlos", "Benito Almagro", "CISO", "Ciberia Tech", "BLUE", "P2 / P5", "c.benito@ciberia.tech", "2026-10-30"], [116, "Ifrah", "Yadeen", "Rashid", "AI Engineer", "Zvolvant Solutions", "DROP", "Park (gateway)", "yadeen.rashid@zvolvant.com", "2026-10-30"], [117, "Ifrah", "Jesus", "Padilla Soqui", "AI Red Team", "Straiker", "RED", "P1 / P2", "jesus@straiker.ai", "2026-10-30"], [118, "Ifrah", "Amrutha", "R", "AI Engineer", "Digitech Services Inc", "DROP", "Park (gateway)", "amrutha.r@digitechserve.com", "2026-10-30"], [119, "Ifrah", "Boyan", "Gogov", "AI Red Team Specialist", "July AI", "RED", "P1 / P2", "boyan@gojuly.ai", "2026-10-30"], [120, "Ifrah", "Jaydon", "Yanez", "Junior Cyber Security Engineer", "IT Solutions N.V", "BLUE", "P2 / P5", "jaydon.yanez@itsolutions.cw", "2026-10-30"], [121, "Ifrah", "Matthew", "Minneman", "Chief Information Security Officer", "RainTech", "BLUE", "P2 / P5", "matthew@rain.tech", "2026-10-30"], [122, "Ifrah", "Paul", "Kuntz", "Cyber Security Engineer", "SysNet Technologies, Inc.", "BLUE", "P2 / P5", "paul.kuntz@sysnettech.com", "2026-10-30"], [123, "Ifrah", "Justinas", "Radzevicius", "Chief Information Security Officer", "Copla", "BLUE", "P2 / P5", "jr@cyberupgrade.net", "2026-10-30"], [124, "Ifrah", "Jonathan", "Sorg", "Red Team Cyber Analyst", "K2 Group, Inc.", "RED", "P1 / P2", "sorgj@k2groupinc.com", "2026-10-30"], [125, "Ifrah", "Priyadarshini", "Saha", "AI & ML Engineer", "Cygeniq", "DROP", "Park (gateway)", "priyadarshini.saha@cygeniq.com", "2026-10-30"], [126, "Ifrah", "Dineesha", "Fernando", "AI Engineer", "Conatix", "DROP", "Park (gateway)", "dineesha.fernando@conatix.com", "2026-10-30"], [127, "Ifrah", "Feven", "Alebachew", "Cyber Security Engineer", "SHEIN Technology LLC", "BLUE", "P2 / P5", "feven.alebachew@sheingroup.com", "2026-10-30"], [128, "Ifrah", "Vaibhav", "Uttam", "AI Engineer", "Trustwise", "DROP", "Park (gateway)", "vaibhav@trustwise.ai", "2026-10-30"], [129, "Ifrah", "Yash", "Somalkar", "AI Security Research Engineer", "Straiker", "RED", "P1 / P2", "yash@straiker.ai", "2026-10-30"], [130, "Ifrah", "Ryan", "Rumana", "Senior AI/ML Engineer", "DAIS", "DROP", "Park (gateway)", "ryan.rumana@dais.co", "2026-10-30"], [131, "Ifrah", "Yash", "Kaushik", "Cyber Security Engineer", "COE Security LLC", "BLUE", "P2 / P5", "yashkaushik@coesecurity.com", "2026-10-30"], [132, "Ifrah", "Aimal", "Khan", "AI Engineer II", "xFlow Research Inc.", "JUNK", "Skip", "aimal.khan@xflowresearch.com", "2026-10-30"], [133, "Ifrah", "Oghenetega", "O", "Offensive Security - Red Team", "Red Team", "RED", "P1 / P2", "", "2026-10-30"], [134, "Ifrah", "Nishant", "Kumar", "Search Engine Optimization (SEO) Engineer | SDE - 2 | AI & Automation Engineer", "Parijat Controlware Inc.", "DROP", "Park (gateway)", "nishant.k@parijat.com", "2026-10-30"], [135, "Ifrah", "Abhishek", "Thakur", "Artificial Intelligence Engineer", "Trustwise", "RED", "P1 / P2", "abhishek@trustwise.ai", "2026-10-30"], [136, "Ifrah", "Hamza", "Shahid", "Artificial Intelligence Engineer", "xFlow Research Inc.", "JUNK", "Skip", "hamza.shahid@xflowresearch.com", "2026-10-30"], [137, "Ifrah", "Joseph", "Shunia", "AI Software Engineer", "Wraithwatch", "DROP", "Park (gateway)", "jshunia@wraithwatch.com", "2026-10-30"], [138, "Ifrah", "Kanita", "Haider", "Lead AI Software Engineer", "UpSkill Consultancy", "JUNK", "Skip", "kanita.haider@upskillconsultancy.com", "2026-10-30"], [139, "Ifrah", "Aaron", "Singh", "AI/ML Engineer and Servicenow Developer", "TechSnitch", "DROP", "Park (gateway)", "aaron.singh@techsnitch.co", "2026-10-30"], [140, "Ifrah", "Muhammad", "Mashwani", "Sr. Sales Engineer - AI Security", "Gray Swan", "RED", "P1 / P2", "muhammad@grayswan.ai", "2026-10-30"], [141, "Ifrah", "Tariq", "Abbasi", "Cyber System Security Engineer", "P-11 Security, Inc. | SBA 8(a) Certified | EDWOSB", "BLUE", "P2 / P5", "tabbasi@p11security.com", "2026-10-30"], [142, "Ifrah", "Ambuj", "Hakhu", "AI Engineer", "Straiker", "DROP", "Park (gateway)", "ambuj@straiker.ai", "2026-10-30"], [143, "Ifrah", "Josh", "Spencer", "Cyber Security Engineer", "SYNAPP Incorporated", "BLUE", "P2 / P5", "josh.spencer@synapp.com", "2026-10-30"], [144, "Ifrah", "Adam", "Gates", "AI Security Solutions Engineer", "Straiker", "RED", "P1 / P2", "adam.gates@straiker.ai", "2026-10-30"], [145, "Ifrah", "IT", "Solutions", "Cyber Security Engineer", "IT Solutions N.V", "BLUE", "P2 / P5", "itstm@itsolutions.cw", "2026-10-30"], [146, "Ifrah", "Glenn", "Dixon", "Cyber Security Engineer", "Information Sciences Consulting, Inc. (ISCI)", "BLUE", "P2 / P5", "gdixon@teamisci.com", "2026-10-30"], [147, "Ifrah", "Arman", "Malik", "AI Engineer II", "xFlow Research Inc.", "JUNK", "Skip", "", "2026-10-30"], [148, "Ifrah", "Hunter", "Schwab", "Cyber Security Engineer", "MAXISIQ", "BLUE", "P2 / P5", "hunter.schwab@maxisiq.com", "2026-10-30"], [149, "Ifrah", "Rudraksh", "Saini", "Red Team Engineer", "Gray Swan", "RED", "P1 / P2", "rudraksh@grayswan.ai", "2026-10-30"], [150, "Ifrah", "Mohammad", "Dosh", "Cyber Security Engineer", "Satius Security", "BLUE", "P2 / P5", "m.abudosh@satius.io", "2026-10-30"], [151, "Ifrah", "Gabriel", "Gordon", "AI Red Teamer/Arena Engineer", "Gray Swan", "RED", "P1 / P2", "gabriel@grayswan.ai", "2026-10-30"], [152, "Ifrah", "Rajneesh", "Pathak", "AI/ML Engineer", "Cygeniq", "DROP", "Park (gateway)", "rajneesh.pathak@cygeniq.com", "2026-10-30"], [153, "Ifrah", "Dan", "Sachs", "Red Teamer (Senior Analyst)", "10a Labs", "RED", "P1 / P2", "dan@10alabs.com", "2026-10-30"], [154, "Ifrah", "Agamya", "Tanwar", "AI/ML Engineer and ServiceNow Developer", "TechSnitch", "DROP", "Park (gateway)", "agamya.tanwar@techsnitch.co", "2026-10-30"], [155, "Ifrah", "Shashankh", "Vegesna", "Data and AI Engineer", "Platinum Business Services", "DROP", "Park (gateway)", "svegesna@weareplatinum.net", "2026-10-30"]];  // [id, rep, first, last, title, company, tier, play, email, week]
+var WEEK_LABEL = { '2026-10-30': 'Week of Oct 30' };
+var KEY = 'orcacyber_leads_disp_v1';
+function loadDisp() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e) { return {}; } }
+function saveDisp(d) { try { localStorage.setItem(KEY, JSON.stringify(d)); } catch(e) {} }
+function esc(s) { return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+var OUTCOMES = ['New','Contacted','Replied','Meeting Booked','Unresponsive','Bad Fit','Unsubscribed','Bounced'];
+var CHANNELS = ['LinkedIn Comment','LinkedIn DM','Email','Call','SMS','X DM','Discord','Other'];
+var MESSAGES = ['P1 attack-our-model','P2 mini red-team','P3 x-ray loom','P4 CTF invite','P5 dossier','P6 newsjack','P7 amplify','P8 answer-first','Custom'];
+var FITS = ['Unknown','Good','Bad'];
+function tagClass(t) { return 'tag tag-' + String(t || '').toLowerCase(); }
+function renderLeads() {
+    var weeks = ['2026-10-30'];
+    var wkSel = document.getElementById('leadWeek');
+    wkSel.innerHTML = '';
+    weeks.forEach(function(w){ var o = document.createElement('option'); o.value = w; o.textContent = WEEK_LABEL[w] || w; wkSel.appendChild(o); });
+    var reps = ['ALL'], tiers = ['ALL'], i, r;
+    for (i = 0; i < LEADS.length; i++) { r = LEADS[i]; if (reps.indexOf(r[1]) < 0) reps.push(r[1]); if (tiers.indexOf(r[6]) < 0) tiers.push(r[6]); }
+    var rs = document.getElementById('leadRep'); rs.innerHTML = '';
+    reps.forEach(function(x){ var o = document.createElement('option'); o.value = x; o.textContent = x === 'ALL' ? 'All reps' : x; rs.appendChild(o); });
+    var ts = document.getElementById('leadTier'); ts.innerHTML = '';
+    tiers.forEach(function(x){ var o = document.createElement('option'); o.value = x; o.textContent = x; ts.appendChild(o); });
+    drawLeads();
+    var week = wkSel.value, rep = rs.value, tier = ts.value, out = document.getElementById('leadOutcome').value, q = document.getElementById('leadSearch').value.toLowerCase();
+    updateSummary(week, rep, tier, out, q);
+}
+function drawLeads() {
+    var disp = loadDisp();
+    var week = document.getElementById('leadWeek').value;
+    var rep = document.getElementById('leadRep').value;
+    var tier = document.getElementById('leadTier').value;
+    var out = document.getElementById('leadOutcome').value;
+    var q = document.getElementById('leadSearch').value.toLowerCase();
+    var tb = document.querySelector('#leadTable tbody');
+    tb.innerHTML = '';
+    var seen = 0, row;
+    for (var i = 0; i < LEADS.length; i++) {
+        var L = LEADS[i];
+        if (L[9] !== week) continue;
+        if (rep !== 'ALL' && L[1] !== rep) continue;
+        if (tier !== 'ALL' && L[6] !== tier) continue;
+        if (q && (L[2] + ' ' + L[3] + ' ' + L[5] + ' ' + L[4]).toLowerCase().indexOf(q) < 0) continue;
+        var d = disp[L[0]] || {};
+        if (out !== 'ALL' && (d.outcome || 'New') !== out) continue;
+        seen++;
+        var tr = document.createElement('tr');
+        tr.id = 'row-' + L[0];
+        var cells = [
+            '<td><b>' + esc(L[1]) + '</b></td>',
+            '<td><b>' + esc(L[2] + ' ' + L[3]) + '</b><br><span style="font-size:11px;color:var(--muted)">' + esc(L[4]) + '</span>' + (L[8] ? '<br><span style="font-size:11px;color:var(--muted)">' + esc(L[8]) + '</span>' : '') + '</td>',
+            '<td>' + esc(L[5]) + '</td>',
+            '<td><span class="' + tagClass(L[6]) + '">' + esc(L[6]) + '</span></td>',
+            '<td>' + sel('channel', CHANNELS, d.channel || 'LinkedIn DM', 'onchange="setDisp(' + L[0] + ',\'channel\',this.value)"') + '</td>',
+            '<td>' + sel('message', MESSAGES, d.message || '', 'onchange="setDisp(' + L[0] + ',\'message\',this.value)"') + (d.message === 'Custom' ? '<br><input type="text" placeholder="custom message" value="' + esc(d.custom || '') + '" onchange="setDisp(' + L[0] + ',\'custom\',this.value)">' : '') + '</td>',
+            '<td>' + sel('outcome', OUTCOMES, d.outcome || 'New', 'onchange="setDisp(' + L[0] + ',\'outcome\',this.value)"') + '</td>',
+            '<td>' + sel('fit', FITS, d.fit || 'Unknown', 'onchange="setDisp(' + L[0] + ',\'fit\',this.value)"') + '</td>',
+            '<td><input type="text" class="why" placeholder="why / what worked" value="' + esc(d.why || '') + '" onchange="setDisp(' + L[0] + ',\'why\',this.value)"></td>',
+            '<td style="white-space:nowrap">' + esc((d.ts || '').slice(5, 16)) + '</td>',
+            '<td><button class="copybtn" onclick="copyUpdate(' + L[0] + ')">Copy</button></td>'
+        ];
+        tr.innerHTML = cells.join('');
+        if (d.ts) tr.classList.add('saved');
+        tb.appendChild(tr);
+    }
+    if (!seen) { var none = document.createElement('tr'); none.innerHTML = '<td colspan="11" style="padding:18px;text-align:center;color:var(--muted)">No leads match.</td>'; tb.appendChild(none); }
+}
+function sel(name, opts, val, onch) {
+    var h = '<select ' + onch + '>';
+    opts.forEach(function(o){ h += '<option value="' + esc(o) + '"' + (o === val ? ' selected' : '') + '>' + esc(o) + '</option>'; });
+    return h + '</select>';
+}
+function setDisp(id, field, value) {
+    var d = loadDisp();
+    d[id] = d[id] || {};
+    d[id][field] = value;
+    d[id].ts = new Date().toISOString();
+    saveDisp(d);
+    var tr = document.getElementById('row-' + id);
+    if (tr) tr.classList.add('saved');
+    updateSummary(document.getElementById('leadWeek').value, document.getElementById('leadRep').value, document.getElementById('leadTier').value, document.getElementById('leadOutcome').value, document.getElementById('leadSearch').value.toLowerCase());
+}
+function leadById(id) { for (var i = 0; i < LEADS.length; i++) if (LEADS[i][0] === id) return LEADS[i]; return null; }
+function copyUpdate(id) {
+    var L = leadById(id), d = loadDisp()[id] || {};
+    var line = '[' + L[1] + '] ' + L[2] + ' ' + L[3] + ' @ ' + L[5] + ' | channel: ' + (d.channel || '-') + ' | message: ' + (d.message || '-') + (d.custom ? ' (' + d.custom + ')' : '') + ' | outcome: ' + (d.outcome || 'New') + ' | fit: ' + (d.fit || 'Unknown') + (d.why ? ' | why: ' + d.why : '') + ' | updated: ' + (d.ts ? d.ts.slice(0,10) : '-');
+    if (navigator.clipboard) { navigator.clipboard.writeText(line).then(function(){ flash(id); }); }
+    else { var ta = document.createElement('textarea'); ta.value = line; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); flash(id); }
+}
+function flash(id) { var b = document.querySelector('#row-' + id + ' .copybtn'); if (b) { var old = b.textContent; b.textContent = 'Copied'; setTimeout(function(){ b.textContent = old; }, 1200); } }
+function updateSummary(week, rep, tier, out, q) {
+    var disp = loadDisp(), counts = {}, fits = {}, meetings = 0, updated = 0, i, L, d;
+    for (i = 0; i < LEADS.length; i++) {
+        L = LEADS[i]; if (L[9] !== week) continue;
+        if (rep !== 'ALL' && L[1] !== rep) continue;
+        if (tier !== 'ALL' && L[6] !== tier) continue;
+        if (q && (L[2] + ' ' + L[3] + ' ' + L[5] + ' ' + L[4]).toLowerCase().indexOf(q) < 0) continue;
+        d = disp[L[0]] || {};
+        if (out !== 'ALL' && (d.outcome || 'New') !== out) continue;
+        var o = d.outcome || 'New'; counts[o] = (counts[o] || 0) + 1;
+        var f = d.fit || 'Unknown'; fits[f] = (fits[f] || 0) + 1;
+        if (o === 'Meeting Booked') meetings++;
+        if (d.ts) updated++;
+    }
+    var total = 0; for (var k in counts) total += counts[k];
+    var parts = ['<b>' + total + '</b> leads'];
+    for (k in counts) parts.push(k + ': ' + counts[k]);
+    parts.push('meetings: ' + meetings);
+    parts.push('updated: ' + updated + '/' + total);
+    parts.push('fit: good ' + (fits['Good'] || 0) + ' / bad ' + (fits['Bad'] || 0));
+    document.getElementById('leadSummary').innerHTML = parts.join(' &nbsp;|&nbsp; ');
+}
+function exportLeadsCSV() {
+    var disp = loadDisp(), week = document.getElementById('leadWeek').value, rows = [];
+    rows.push(['Week','Rep','First','Last','Company','Title','Tier','Play','Email','Channel','Message','Outcome','Fit','Why','Updated']);
+    for (var i = 0; i < LEADS.length; i++) {
+        var L = LEADS[i]; if (L[9] !== week) continue;
+        var d = disp[L[0]] || {};
+        rows.push([week, L[1], L[2], L[3], L[5], L[4], L[6], L[7], L[8], d.channel || '', (d.message || '') + (d.custom ? ' ' + d.custom : ''), d.outcome || 'New', d.fit || 'Unknown', d.why || '', d.ts || '']);
+    }
+    var csv = rows.map(function(r){ return r.map(function(c){ c = String(c == null ? '' : c); return /[",\n]/.test(c) ? '"' + c.replace(/"/g,'""') + '"' : c; }).join(','); }).join('\n');
+    var blob = new Blob([csv], {type: 'text/csv'});
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'rep-leads-' + week + '.csv'; a.click();
+}
+['leadWeek','leadRep','leadTier','leadOutcome','leadSearch'].forEach(function(id){
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('change', drawLeads);
+});
+var _searchEl = document.getElementById('leadSearch');
+if (_searchEl) _searchEl.addEventListener('input', drawLeads);
+</script>
+exactly the trigger-based bar.</div></div>
 <div class="example"><div class="fmt">What to change</div><div class="msg">Almost nothing. Two small things: the middle sentence ("It's designed to support the research and validation work...") can tighten, and you need two more examples to complete the set. Same quality, two more.</div></div>
 <div class="example"><div class="fmt">Rendition of your Johannes message, tightened</div><div class="msg">Hi Johannes,
 
@@ -538,7 +730,34 @@ In your experience, does validation become the bottleneck, or does discovery sti
 <div class="footer">OrcaRouter SDR Enablement Hub · Internal use only</div>
     </div>
 
-    <script>
+    </div>
+
+<!-- REP LEADS TAB -->
+<div id="leads" class="section">
+  <div class="leads-head">
+    <h2>Rep Leads &amp; Dispositions</h2>
+    <p>Track every lead through the week: channel, message, outcome, fit, and why. Edits save to this browser; export the week as CSV to push to HubSpot (Hermes sync comes later).</p>
+  </div>
+  <div class="leads-controls">
+    <label>Week <select id="leadWeek"></select></label>
+    <label>Rep <select id="leadRep"><option value="ALL">All reps</option></select></label>
+    <label>Tier <select id="leadTier"><option value="ALL">All tiers</option></select></label>
+    <label>Outcome <select id="leadOutcome"><option value="ALL">All outcomes</option></select></label>
+    <label>Search <input id="leadSearch" type="text" placeholder="name, company, title"></label>
+    <button class="btn" onclick="exportLeadsCSV()">Export week CSV</button>
+  </div>
+  <div id="leadSummary" class="lead-summary"></div>
+  <div class="leads-scroll">
+    <table id="leadTable" class="lead-table">
+      <thead><tr>
+        <th>Rep</th><th>Lead</th><th>Company</th><th>Tier</th><th>Channel</th><th>Message</th><th>Outcome</th><th>Fit</th><th>Why</th><th>Updated</th><th></th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
         const playbookMd = `# Enablement Session: OrcaCyber Zero & Community Prospecting
 
 **Audience:** SDRs / AEs / Developer Relations
