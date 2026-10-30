@@ -230,8 +230,8 @@
 <body>
     <nav class="nav">
         <div class="nav-brand">OrcaRouter</div>
-        <a href="#" onclick="showSection('enablement')" class="active" id="nav-enablement">Enablement &amp; Coaching</a>
-        <a href="#" onclick="showSection('leads')" id="nav-leads">Rep Leads</a>
+        <a href="#" onclick="showTopTab('enablement')" class="active" id="nav-enablement">Enablement &amp; Coaching</a>
+        <a href="#" onclick="showTopTab('leads')" id="nav-leads">Rep Leads</a>
     </nav>
 
     <div class="container">
@@ -262,12 +262,12 @@
 <!-- ENABLEMENT WRAPPER (consolidated) -->
 <div id="enablement" class="section active">
   <div class="subnav">
-    <a href="#" onclick="showSection('grader')" class="active" id="nav-sub-grader">Message Grader</a>
-    <a href="#" onclick="showSection('playbook')" id="nav-sub-playbook">Playbook</a>
-    <a href="#" onclick="showSection('outreach')" id="nav-sub-outreach">Outreach Playbook</a>
-    <a href="#" onclick="showSection('cheatsheet')" id="nav-sub-cheatsheet">Fluff-to-Fact</a>
-    <a href="#" onclick="showSection('team')" id="nav-sub-team">Rep Messaging</a>
-    <a href="#" onclick="showSection('coaching')" id="nav-sub-coaching">Coaching</a>
+    <a href="#" onclick="showSubSec('grader')" class="active" id="nav-sub-grader">Message Grader</a>
+    <a href="#" onclick="showSubSec('playbook')" id="nav-sub-playbook">Playbook</a>
+    <a href="#" onclick="showSubSec('outreach')" id="nav-sub-outreach">Outreach Playbook</a>
+    <a href="#" onclick="showSubSec('cheatsheet')" id="nav-sub-cheatsheet">Fluff-to-Fact</a>
+    <a href="#" onclick="showSubSec('team')" id="nav-sub-team">Rep Messaging</a>
+    <a href="#" onclick="showSubSec('coaching')" id="nav-sub-coaching">Coaching</a>
   </div>
 
 <!-- GRADER SECTION -->
@@ -564,7 +564,7 @@ Want a workspace this week?</div></div>
 <div class="rep-card"><div class="rep-head"><span class="avatar">N</span><div><div class="name">Niha</div><span class="rep-status">1/3 · Needs 2 more</span></div></div><div class="coach-feedback">
 <div class="example"><div class="fmt">What works</div><div class="msg">The strongest single opener on the board. You followed up on a real prior conversation, named the actual challenge (validation vs discovery), positioned honestly ("not an autonomous pentest agent"), and ended with a genuine question for a peer. That is <script>
 
-function showSection(id) {
+function showTopTab(id) {
     var topLevel = (id === 'enablement' || id === 'leads');
     document.querySelectorAll('.section').forEach(function(s){ s.classList.remove('active'); });
     document.querySelectorAll('.nav a').forEach(function(a){ a.classList.remove('active'); });
@@ -572,15 +572,15 @@ function showSection(id) {
         document.getElementById(id).classList.add('active');
         document.getElementById('nav-' + id).classList.add('active');
         if (id === 'leads') { if (window.__leadsRendered !== true) { renderLeads(); window.__leadsRendered = true; } }
-        else { showSub('grader', true); }
+        else { showSubSec('grader', true); }
     } else {
         document.getElementById('enablement').classList.add('active');
         document.getElementById('nav-enablement').classList.add('active');
-        showSub(id, false);
+        showSubSec(id, false);
     }
     window.scrollTo(0, 0);
 }
-function showSub(id, fromTop) {
+function showSubSec(id, fromTop) {
     var subs = document.querySelectorAll('#enablement > .section');
     subs.forEach(function(s){ s.classList.remove('active'); });
     var el = document.getElementById(id);
@@ -595,12 +595,13 @@ var KEY = 'orcacyber_leads_disp_v1';
 function loadDisp() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e) { return {}; } }
 function saveDisp(d) { try { localStorage.setItem(KEY, JSON.stringify(d)); } catch(e) {} }
 function esc(s) { return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-var OUTCOMES = ['New','Contacted','Replied','Meeting Booked','Unresponsive','Bad Fit','Unsubscribed','Bounced'];
+var OUTCOMES = ['New','Contacted','Replied','Meeting Booked','Meeting Held','Follow-up Sent','Proposal Sent','Negotiation','Won','Lost','Unresponsive','Bad Fit','Unsubscribed','Bounced'];
 var CHANNELS = ['LinkedIn Comment','LinkedIn DM','Email','Call','SMS','X DM','Discord','Other'];
 var MESSAGES = ['P1 attack-our-model','P2 mini red-team','P3 x-ray loom','P4 CTF invite','P5 dossier','P6 newsjack','P7 amplify','P8 answer-first','Custom'];
 var FITS = ['Unknown','Good','Bad'];
 function tagClass(t) { return 'tag tag-' + String(t || '').toLowerCase(); }
 function renderLeads() {
+    try {
     var weeks = ['2026-10-30'];
     var wkSel = document.getElementById('leadWeek');
     wkSel.innerHTML = '';
@@ -614,8 +615,10 @@ function renderLeads() {
     drawLeads();
     var week = wkSel.value, rep = rs.value, tier = ts.value, out = document.getElementById('leadOutcome').value, q = document.getElementById('leadSearch').value.toLowerCase();
     updateSummary(week, rep, tier, out, q);
+    } catch(err) { document.getElementById('leadSummary').innerHTML = '<b style="color:#b91c1c">Table error: ' + esc(err.message) + '</b>'; }
 }
 function drawLeads() {
+    try {
     var disp = loadDisp();
     var week = document.getElementById('leadWeek').value;
     var rep = document.getElementById('leadRep').value;
@@ -664,6 +667,7 @@ function drawLeads() {
         tb.appendChild(tr);
     }
     if (!seen) { var none = document.createElement('tr'); none.innerHTML = '<td colspan="12" style="padding:18px;text-align:center;color:var(--muted)">No leads match.</td>'; tb.appendChild(none); }
+    } catch(err) { document.getElementById('leadSummary').innerHTML = '<b style="color:#b91c1c">Table error: ' + esc(err.message) + '</b>'; }
 }
 function sel(name, opts, val, onch) {
     var h = '<select ' + onch + '>';
@@ -725,7 +729,7 @@ function updateSummary(week, rep, tier, out, q) {
     });
     h.push('</tbody></table>');
     h.push('<div class="rep-cols">');
-    var funnelKeys = ['New','Contacted','Replied','Meeting Booked','Unresponsive','Bad Fit','Unsubscribed','Bounced'];
+    var funnelKeys = ['New','Contacted','Replied','Meeting Booked','Meeting Held','Follow-up Sent','Proposal Sent','Negotiation','Won','Lost','Unresponsive','Bad Fit','Unsubscribed','Bounced'];
     h.push('<div class="rep-col"><div class="rep-col-h">Funnel</div>' + funnelKeys.map(function(k){ return k + ': <b>' + (funnel[k] || 0) + '</b>'; }).join('<br>') + '</div>');
     h.push('<div class="rep-col"><div class="rep-col-h">Channels</div>' + Object.keys(channels).sort().map(function(k){ return esc(k) + ': <b>' + channels[k] + '</b>'; }).join('<br>') + '</div>');
     h.push('<div class="rep-col"><div class="rep-col-h">Messages</div>' + Object.keys(messages).sort().map(function(k){ return esc(k) + ': <b>' + messages[k] + '</b>'; }).join('<br>') + '</div>');
