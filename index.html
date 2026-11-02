@@ -225,6 +225,9 @@
         .rep-col { min-width: 150px; font-size: 12px; line-height: 1.5; }
         .rep-col-h { font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 3px; }
 
+    
+        .build-badge { display: inline-block; margin-top: 10px; padding: 4px 12px; border: 1px solid var(--muted); border-radius: 20px; font-size: 12px; font-weight: 600; color: var(--muted); }
+
     </style>
 </head>
 <body>
@@ -241,7 +244,8 @@
             <p>Everything you need to sell OrcaRouter and OrcaCyber Zero. Grade your messages, learn the product, and close more deals.</p>
         </div>
 
-        <!-- STATS -->
+        
+        <div class="build-badge">Updated Oct 31</div><!-- STATS -->
         <div class="stats">
             <div class="stat"><div class="num">$3</div><div class="label">Per 1M tokens (in)</div></div>
             <div class="stat"><div class="num">100%</div><div class="label">Cybench (reported)</div></div>
@@ -254,10 +258,16 @@
   <h2>Patch Notes</h2>
   <p>What changed and when. Pull the latest skill files from orcacyber-outreach-skill before each new batch; your local copy drifts.</p>
   <div class="patchnote">
+    <div class="pn-date">2026-10-31</div>
+    <div class="pn-body"><b>CRM split + hub improvements.</b> FlashLabs and OrcaRouter are now separate HubSpot instances. This hub and the Rep Leads sync move to the new OrcaRouter portal; the FlashLabs side stays on the old instance. Migration of leads, tags, and the Orca Deals pipeline is in progress this week. Hub updates coming: build badge (done), weekly list rollover, disposition CSV import, and the Hermes write-back path.</div>
+  </div>
+  <div class="patchnote">
     <div class="pn-date">2026-10-30</div>
     <div class="pn-body"><b>Alignment + fact pass.</b> Team plan is <b>$499/mo</b> on the live page, not $49 (KBs and older assets corrected). BYOK traffic may carry a platform fee; quote the pricing page. Cyber prices are public on model pages ($3.00/$7.50 for Zero 1.5); benchmarks stay vendor-reported, phrase as "our reported numbers, not an independent audit." Removed: "genuinely unrestricted" phrasing, "$50 trial" promises, the unverified MSSP testimonial. Cost math corrected to ~1/8 of Mythos. New in orcacyber-outreach-skill: per-rep mission briefs (<code>reps/</code>) and the <code>grade-orca-message</code> skill (<code>skills/</code>). 154 leads are in HubSpot tagged Orca Tier / Orca Play / Account Owner; your final CSV and briefing pack are in <code>leads/</code>.</div>
   </div>
 </div>
+
+
 
 <!-- ENABLEMENT WRAPPER (consolidated) -->
 <div id="enablement" class="section active">
