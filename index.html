@@ -228,6 +228,26 @@
     
         .build-badge { display: inline-block; margin-top: 10px; padding: 4px 12px; border: 1px solid var(--muted); border-radius: 20px; font-size: 12px; font-weight: 600; color: var(--muted); }
 
+    
+        /* PRESENTATION DECK */
+        .deck-head { margin-bottom: 12px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px; }
+        .deck-title { font-size: clamp(22px, 3vw, 34px); font-weight: 900; letter-spacing: -1px; }
+        .deck-sub { font-size: clamp(14px, 1.6vw, 18px); color: var(--muted); }
+        .deck-controls { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+        .deckbtn { padding: 8px 16px; border: 1px solid var(--muted); border-radius: 8px; background: var(--bg); color: var(--text); font-size: clamp(13px, 1.4vw, 16px); cursor: pointer; }
+        .deckbtn:hover { background: var(--text); color: #fff; }
+        .deck-count { font-size: 14px; color: var(--muted); }
+        .deck { display: flex; flex-direction: column; justify-content: center; min-height: 68vh; }
+        .slide { display: none; animation: fadeIn 0.25s ease-in; }
+        .slide.active { display: block; }
+        .slide h1 { font-size: clamp(30px, 4.5vw, 56px); font-weight: 900; letter-spacing: -2px; margin-bottom: 24px; }
+        .big-list { font-size: clamp(17px, 2.2vw, 26px); line-height: 1.7; padding-left: 26px; }
+        .big-list li { margin-bottom: 14px; }
+        .persona-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+        .pcard { border: 1px solid var(--muted); border-radius: 12px; padding: 18px; font-size: clamp(14px, 1.7vw, 20px); line-height: 1.5; }
+        .pcard b { font-size: clamp(16px, 2vw, 24px); }
+        .pcard i { color: var(--muted); }
+
     </style>
 </head>
 <body>
@@ -819,78 +839,128 @@ In your experience, does validation become the bottleneck, or does discovery sti
   </div>
 </div>
 
-<!-- TODAY'S MEETING TAB -->
+<!-- TODAY'S MEETING TAB (presentation deck) -->
 <div id="meeting" class="section">
-  <h2>Product Enablement &amp; Updates — Nov 2</h2>
-  <p>Agenda, updates, enablement, personas, and open items for today's session.</p>
+  <div class="deck-head">
+    <div class="deck-title">Product Enablement &amp; Updates</div>
+    <div class="deck-sub">Nov 2 2026</div>
+    <div class="deck-controls">
+      <button class="deckbtn" onclick="meetingGo(0)">Start</button>
+      <button class="deckbtn" onclick="meetingStep(-1)">Prev</button>
+      <button class="deckbtn" onclick="meetingStep(1)">Next</button>
+      <button class="deckbtn" onclick="meetingFull()">Fullscreen</button>
+      <span class="deck-count" id="deckCount"></span>
+    </div>
+  </div>
+  <div class="deck" id="deck">
 
-  <h3>Agenda (45 min)</h3>
-  <ol>
-    <li>Product updates (10) — what changed in the last two weeks</li>
-    <li>Enablement delivered (10) — what the team can now do</li>
-    <li>Playbook reinforcement (10) — the current standard</li>
-    <li>Personas refresher (10) — six opening lines that land</li>
-    <li>Claim hygiene + open items (5)</li>
-  </ol>
+    <div class="slide">
+      <h1>Agenda</h1>
+      <ol class="big-list">
+        <li>Product updates — the last two weeks</li>
+        <li>Enablement delivered — what the team can do now</li>
+        <li>Playbook reinforcement — the standard in one pass</li>
+        <li>Personas — six opening lines that land</li>
+        <li>Claim hygiene + open items — decisions in the room</li>
+      </ol>
+    </div>
 
-  <h3>Product updates</h3>
-  <ul>
-    <li><b>OrcaCyber Zero 1.5</b> is the flagship: $3.00/$7.50 per 1M, 1M context, 128K out, native function calling, structured outputs, OpenAI-compatible. Reported benchmarks: CyberGym 98%+ full eval (our number, OrcaCyber harness), Cybench 100% (agent run), CVE-Bench 95.8% (evaluable subset), HumanEval+ 93.9%, SWE-bench Pro V2 76.5%. Cached reads $0.75/M. Hosted API only.</li>
-    <li>Lineup: Ultra ($5/$10, 1M ctx / 131K out, whole-repo scanning, structured JSON), Flash tier (fast/cheap), Nano (open weights, self-host, not on the catalog).</li>
-    <li>Catalog/news: model comparison posts (Mistral Large 4, DeepSeek V4.1 family, GPT-6.1 Sol), AI incident archive, OrcaCyber Nano open-weight release. Fusion remains the "Fable 5 is gone" answer.</li>
-    <li><b>CRM split complete:</b> OrcaRouter portal 247102705 now holds 154 leads + 50 pure Orca deals + properties + Orca New Deal pipeline. FlashLabs stays on the old portal. Hub sync retarget pending.</li>
-  </ul>
+    <div class="slide">
+      <h1>Product updates</h1>
+      <ul class="big-list">
+        <li><b>Zero 1.5</b> — $3/$7.50 per 1M, 1M context, P-0/P-1, zero-days</li>
+        <li>Benchmarks (ours): CyberGym 98%+, Cybench 100%, CVE-Bench 95.8%, SWE-bench Pro 76.5%</li>
+        <li>Lineup: Ultra $5/$10 · Flash cheap · Nano open weights</li>
+        <li>CRM split complete: 154 leads + 50 deals in the new portal</li>
+      </ul>
+    </div>
 
-  <h3>Enablement delivered (last few weeks)</h3>
-  <ul>
-    <li>Hub rebuild: consolidated nav, Rep Leads tab with dispositions + weekly report, Patch Notes, build badge</li>
-    <li>Mission briefs: Niha, Rayyan, Ifrah, Fahad (reps/ in orcacyber-outreach-skill)</li>
-    <li>grade-orca-message skill — the grader standard, runs in each rep's Hermes</li>
-    <li>Knowledge base skill with live-docs self-refresh before each session</li>
-    <li>Fahad onboarding: mission brief, Zero-first product tour, OrcaCyber Zero training module</li>
-    <li>Engine fact fixes: prices public, benchmarks vendor-reported, BYOK hedged, $50 trial removed, unrestricted phrasing removed</li>
-  </ul>
+    <div class="slide">
+      <h1>Enablement delivered</h1>
+      <ul class="big-list">
+        <li>Hub: consolidated tabs, Rep Leads + weekly report, Patch Notes</li>
+        <li>Mission briefs: Niha · Rayyan · Ifrah · Fahad</li>
+        <li>Grader skill + self-refreshing knowledge base</li>
+        <li>Engine fact fixes: prices public, benchmarks labeled, no $50 trial</li>
+      </ul>
+    </div>
 
-  <h3>Playbook reinforcement</h3>
-  <ul>
-    <li>One-liner: OrcaCyber Zero 1.5 is the frontier cyber reasoning model for authorized security work, P-0/P-1 and zero-days, fewer reports more validated findings</li>
-    <li>ICP: red teams, pentest firms, AI-security vendors, security consultancies, MSSPs; channels: Discord, MCP registries, Product Hunt, X</li>
-    <li>Standard: comment-first, two-line DMs, one open question, tier-application CTA, 3-touch cadence, workspace setup checklist, Zero vs the field deep-dive</li>
-  </ul>
+    <div class="slide">
+      <h1>Playbook</h1>
+      <ul class="big-list">
+        <li>Zero: frontier cyber reasoning, fewer reports, more validated</li>
+        <li>ICP: red teams, pentest firms, AI-security vendors, MSSPs</li>
+        <li>Standard: comment-first, 2-line DMs, one question, tier CTA</li>
+        <li>Channels: Discord, MCP registries, Product Hunt, X</li>
+      </ul>
+    </div>
 
-  <h3>Personas — lead with what they are measured on</h3>
-  <table class="rep-table">
-    <thead><tr><th>Persona</th><th>Lead with</th><th>Opening question</th></tr></thead>
-    <tbody>
-      <tr><td>FinOps / finance</td><td>Zero-markup structure, per-call receipt</td><td>What does a request cost you today, and how long to answer that?</td></tr>
-      <tr><td>Platform / infra</td><td>One endpoint, fallbacks, &lt;1ms routing</td><td>What happens when a provider throttles you mid-sprint?</td></tr>
-      <tr><td>Security / compliance</td><td>Zero retention, declared region, scoped keys, signed evidence</td><td>What does your reviewer need to see, and who signs off?</td></tr>
-      <tr><td>AI product teams</td><td>Named routers, prompt registry, swap models without redeploy</td><td>How often do you change models, and what does that cost in engineering time?</td></tr>
-      <tr><td>Agent builders</td><td>Firewall: tool calls graded before run, MCP gated, cost caps</td><td>What stops your agent from doing something you would not approve?</td></tr>
-      <tr><td>Inference platforms</td><td>Pass-through pricing, cache, failover, error transparency</td><td>How does your scoring read our failovers and cache hits?</td></tr>
-    </tbody>
-  </table>
+    <div class="slide">
+      <h1>Personas — lead with what they are measured on</h1>
+      <div class="persona-grid">
+        <div class="pcard"><b>FinOps</b><br>Zero-markup + per-call receipt<br><i>"What does a request cost you today?"</i></div>
+        <div class="pcard"><b>Platform</b><br>One endpoint, failovers, &lt;1ms<br><i>"What happens mid-sprint when a provider throttles?"</i></div>
+        <div class="pcard"><b>Security</b><br>Zero retention, scoped keys, signed evidence<br><i>"What does your reviewer need to see?"</i></div>
+        <div class="pcard"><b>AI product</b><br>Named routers, prompt registry<br><i>"How often do you swap models, and what does it cost?"</i></div>
+        <div class="pcard"><b>Agent builders</b><br>Firewall: tools graded before run<br><i>"What stops your agent doing something you wouldn't approve?"</i></div>
+        <div class="pcard"><b>Inference platforms</b><br>Pass-through, cache, failover, transparency<br><i>"How does your scoring read our failovers?"</i></div>
+      </div>
+    </div>
 
-  <h3>Claim hygiene</h3>
-  <ul>
-    <li>Prices ARE public: Zero $3/$7.50, cached $0.75, Ultra $5/$10, Team $499/mo</li>
-    <li>Benchmarks are OUR reported numbers, not an independent audit (CyberGym was a combined setup, label it)</li>
-    <li>Provider count: site says 40+, live catalog 16 prefixes, docs 11. Do not defend 40+; quote the catalog with its date</li>
-    <li>BYOK may carry a platform fee. No $50 trial, no $25 credit. $0 is structure, not a discount. 90-day POC: "if it does not deliver by day 90, you walk"</li>
-  </ul>
+    <div class="slide">
+      <h1>Claim hygiene</h1>
+      <ul class="big-list">
+        <li>Prices are public — Z<script>
 
-  <h3>Open items for decisions</h3>
-  <ol>
-    <li>Retarget hub sync to the new OrcaRouter portal</li>
-    <li>Sam's 3 deals unowned in the new portal: invite Sam or reassign</li>
-    <li>Hub weekly list rollover + CSV disposition import</li>
-    <li>Hermes write-back path for dispositions</li>
-    <li>JP sync direction: weekly list for Yuki/Koki, orphan-owner reassignment, terminal-stage cleanup</li>
-  </ol>
+var _deckSlides = function(){ var d = document.getElementById('deck'); return d ? d.querySelectorAll('.slide') : []; };
+function meetingGo(n) {
+    var s = _deckSlides();
+    if (!s.length) return;
+    n = Math.max(0, Math.min(s.length - 1, n));
+    for (var i = 0; i < s.length; i++) s[i].classList.toggle('active', i === n);
+    var c = document.getElementById('deckCount');
+    if (c) c.textContent = (n + 1) + ' / ' + s.length;
+}
+function meetingStep(d) {
+    var s = _deckSlides(), cur = 0;
+    for (var i = 0; i < s.length; i++) if (s[i].classList.contains('active')) cur = i;
+    meetingGo(cur + d);
+}
+function meetingFull() {
+    var el = document.documentElement;
+    if (document.fullscreenElement) document.exitFullscreen();
+    else if (el.requestFullscreen) el.requestFullscreen();
+}
+document.addEventListener('keydown', function(e) {
+    var m = document.getElementById('meeting');
+    if (!m || !m.classList.contains('active')) return;
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); meetingStep(1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); meetingStep(-1); }
+    if (e.key === 'Home') { meetingGo(0); }
+});
+</script>
+ero $3/$7.50, Ultra $5/$10, Team $499</li>
+        <li>Benchmarks are OUR numbers, not an independent audit</li>
+        <li>Provider count: 16 live prefixes. Do not defend "40+"</li>
+        <li>$0 is structure, not a discount · 90-day POC: walk at day 90</li>
+      </ul>
+    </div>
+
+    <div class="slide">
+      <h1>Open items — decide in the room</h1>
+      <ol class="big-list">
+        <li>Retarget hub sync to the new portal</li>
+        <li>Sam's 3 deals: invite Sam or reassign</li>
+        <li>Weekly list rollover + CSV disposition import</li>
+        <li>Hermes write-back for dispositions</li>
+        <li>JP sync direction: list, orphan owners, stage cleanup</li>
+      </ol>
+    </div>
+
+  </div>
 </div>
 
-<script>
-        const playbookMd = `# Enablement Session: OrcaCyber Zero & Community Prospecting
+const playbookMd = `# Enablement Session: OrcaCyber Zero & Community Prospecting
 
 **Audience:** SDRs / AEs / Developer Relations
 **Scope:** (1) OrcaCyber Zero product enablement, (2) how to prospect across Discord, MCP registries, Product Hunt, and X for OrcaRouter + OrcaCyber
