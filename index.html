@@ -603,6 +603,7 @@ function showTopTab(id) {
         document.getElementById(id).classList.add('active');
         document.getElementById('nav-' + id).classList.add('active');
         if (id === 'leads') { if (window.__leadsRendered !== true) { renderLeads(); window.__leadsRendered = true; } }
+        else if (id === 'meeting' && typeof meetingGo === 'function') { meetingGo(0); }
         else { showSubSec('grader', true); }
     } else {
         document.getElementById('enablement').classList.add('active');
@@ -854,7 +855,7 @@ In your experience, does validation become the bottleneck, or does discovery sti
   </div>
   <div class="deck" id="deck">
 
-    <div class="slide">
+    <div class="slide active">
       <h1>Agenda</h1>
       <ol class="big-list">
         <li>Product updates — the last two weeks</li>
